@@ -14,31 +14,7 @@
  * limitations under the License.
  */
 
-use multi_agent_system_core::Result;
-use multi_agent_system_gui::Gui;
+use crate::Error;
+use std::result;
 
-#[derive(Debug, Default)]
-pub struct App {
-    gui: Gui,
-}
-
-impl App {
-    #[inline]
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn run(self) -> Result<()> {
-        self.gui.run()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::App;
-
-    #[test]
-    fn test_app_new() {
-        let _app = App::new();
-    }
-}
+pub type Result<T> = result::Result<T, Error>;

@@ -14,31 +14,17 @@
  * limitations under the License.
  */
 
-use multi_agent_system_core::Result;
-use multi_agent_system_gui::Gui;
+use crate::Result;
 
-#[derive(Debug, Default)]
-pub struct App {
-    gui: Gui,
-}
+pub trait System {
+    const FREQUENCY_IN_HZ: u64 = 30;
 
-impl App {
-    #[inline]
-    pub fn new() -> Self {
-        Self::default()
-    }
+    type Config;
+    type Data;
 
-    pub fn run(self) -> Result<()> {
-        self.gui.run()
-    }
-}
+    fn new(config: Self::Config) -> Result<Self>
+    where
+        Self: Sized;
 
-#[cfg(test)]
-mod tests {
-    use super::App;
-
-    #[test]
-    fn test_app_new() {
-        let _app = App::new();
-    }
+    fn update(&mut self, config: Self::Config) -> Result<Self::Data>;
 }

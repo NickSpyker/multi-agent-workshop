@@ -32,6 +32,7 @@ default = []
 
 [dependencies]
 multi-agent-system-core.workspace = true
+multi-agent-system-gui.workspace = true
 
 [lints]
 workspace = true

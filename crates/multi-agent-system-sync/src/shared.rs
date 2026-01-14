@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-use multi_agent_system_core::Result;
-use multi_agent_system_gui::Gui;
+use arc_swap::{ArcSwap, Guard};
+use std::sync::Arc;
 
-#[derive(Debug, Default)]
-pub struct App {
-    gui: Gui,
+pub type GuardArc<T> = Guard<Arc<T>>;
+
+#[derive(Debug, Clone)]
+pub struct Shared<T: Clone> {
+    inner: Arc<ArcSwap<T>>,
 }
 
-impl App {
-    #[inline]
-    pub fn new() -> Self {
-        Self::default()
+impl<T: Clone> Shared<T> {
+    pub fn new(data: T) -> Self {
+        Self {
+            inner: Arc::new(ArcSwap::from_pointee(data)),
+        }
     }
 
-    pub fn run(self) -> Result<()> {
-        self.gui.run()
+    pub fn load(&self) -> GuardArc<T> {
+        self.inner.load()
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use super::App;
-
-    #[test]
-    fn test_app_new() {
-        let _app = App::new();
+    pub fn store(&self, data: T) {
+        self.inner.store(Arc::new(data));
     }
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, criterion_group, criterion_main};
 use multi_agent_system::App;
 
 fn setup(_c: &mut Criterion) {
-    let _app = App {};
+    let _app = App::new();
 }
 
 criterion_group!(app, setup);

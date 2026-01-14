@@ -2,6 +2,7 @@
   <dictionary name="project">
     <words>
       <w>Physarum</w>
+      <w>egui</w>
     </words>
   </dictionary>
 </component>

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name = "multi-agent-system-core"
+name = "multi-agent-system-gui"
 version.workspace = true
 authors.workspace = true
 categories.workspace = true
@@ -27,11 +27,12 @@ publish.workspace = true
 readme.workspace = true
 repository.workspace = true
 
-[dependencies]
-eframe.workspace = true
-
 [features]
 default = []
+
+[dependencies]
+multi-agent-system-core.workspace = true
+eframe.workspace = true
 
 [lints]
 workspace = true

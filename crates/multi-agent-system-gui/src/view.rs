@@ -14,31 +14,10 @@
  * limitations under the License.
  */
 
-use multi_agent_system_core::Result;
-use multi_agent_system_gui::Gui;
+use eframe::{egui::Context, Frame};
 
-#[derive(Debug, Default)]
-pub struct App {
-    gui: Gui,
-}
+pub trait View {
+    const NAME: &str;
 
-impl App {
-    #[inline]
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn run(self) -> Result<()> {
-        self.gui.run()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::App;
-
-    #[test]
-    fn test_app_new() {
-        let _app = App::new();
-    }
+    fn update(&mut self, ctx: &Context, frame: &mut Frame);
 }

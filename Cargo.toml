@@ -17,6 +17,9 @@ resolver = "2"
 members = [
     # Workspace Crates
     "crates/multi-agent-system-core",
+    "crates/multi-agent-system-sync",
+    "crates/multi-agent-system-runtime",
+    "crates/multi-agent-system-gui",
     # Main Library
     "multi-agent-system",
     # Internal
@@ -41,6 +44,14 @@ repository = "https://github.com/NickSpyker/multi-agent-systems"
 [workspace.dependencies]
 # Workspace Crates
 multi-agent-system-core = { path = "crates/multi-agent-system-core", features = ["default"] }
+multi-agent-system-sync = { path = "crates/multi-agent-system-sync", features = ["default"] }
+multi-agent-system-runtime = { path = "crates/multi-agent-system-runtime", features = ["default"] }
+multi-agent-system-gui = { path = "crates/multi-agent-system-gui", features = ["default"] }
+# Sync
+crossbeam-channel = { version = "0.5.15", features = ["default"] }
+arc-swap = { version = "1.8.0", features = [] }
+# Graphical User Interface
+eframe = { version = "0.33.3", features = ["default"] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
