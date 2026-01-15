@@ -1,0 +1,3 @@
+[package]
+name = "boids"
+edition = "2024"

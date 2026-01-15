@@ -15,16 +15,17 @@
  */
 
 use crate::Result;
+use std::time::Duration;
 
 pub trait System {
     const FREQUENCY_IN_HZ: u64 = 30;
 
-    type Config;
+    type Input;
     type Data;
 
-    fn new(config: Self::Config) -> Result<Self>
+    fn new(initial_input: Self::Input) -> Result<Self>
     where
         Self: Sized;
 
-    fn update(&mut self, config: Self::Config) -> Result<Self::Data>;
+    fn update(&mut self, input: Self::Input, delta_time: Duration) -> Result<Self::Data>;
 }

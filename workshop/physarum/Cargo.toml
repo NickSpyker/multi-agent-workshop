@@ -1,0 +1,3 @@
+[package]
+name = "physarum"
+edition = "2024"

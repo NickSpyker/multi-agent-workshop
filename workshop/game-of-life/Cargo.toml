@@ -1,0 +1,3 @@
+[package]
+name = "game-of-life"
+edition = "2024"

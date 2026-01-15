@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = ["game-of-life", "boids", "fluid", "physarum"]
+
+[workspace.dependencies]
+multi-agent-system = { git = "https://github.com/NickSpyker/multi-agent-system" }

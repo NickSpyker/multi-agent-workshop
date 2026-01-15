@@ -25,6 +25,7 @@ use std::{
 pub enum Error {
     Thread(Box<dyn Any + Send + 'static>),
     Gui(eframe::Error),
+    GuiViewAlreadyExists(String),
     MessageSenderFull,
     MessageSenderDisconnected,
 }
@@ -34,6 +35,7 @@ impl Display for Error {
         match self {
             Self::Thread(err) => write!(f, "{err:?}"),
             Self::Gui(err) => write!(f, "{err}"),
+            Self::GuiViewAlreadyExists(err) => write!(f, "view already exists {err}"),
             Self::MessageSenderFull => write!(f, "sending on a full channel"),
             Self::MessageSenderDisconnected => write!(f, "sending on a disconnected channel"),
         }
@@ -45,6 +47,7 @@ impl error::Error for Error {
         match self {
             Self::Thread(_) => None,
             Self::Gui(err) => Some(err),
+            Self::GuiViewAlreadyExists(_) => None,
             Self::MessageSenderFull => None,
             Self::MessageSenderDisconnected => None,
         }

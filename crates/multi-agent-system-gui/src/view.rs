@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-use eframe::{egui::Context, Frame};
+use eframe::{
+    egui::{Context, Ui},
+    Frame,
+};
+use std::fmt::Debug;
 
-pub trait View {
-    const NAME: &str;
-
-    fn update(&mut self, ctx: &Context, frame: &mut Frame);
+pub trait View: Debug {
+    fn name(&self) -> &str;
+    fn sidebar(&mut self, ctx: &Context, frame: &mut Frame, ui: &mut Ui);
+    fn content(&mut self, ctx: &Context, frame: &mut Frame, ui: &mut Ui);
 }
