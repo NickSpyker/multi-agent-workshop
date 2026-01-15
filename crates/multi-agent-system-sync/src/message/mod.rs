@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-mod shared;
+mod channel;
+mod receiver;
+mod sender;
 
-pub mod message;
-
-pub use shared::{GuardArc, Shared};
+pub use channel::MessageChannel;
+pub use receiver::MessageReceiver;
+pub use sender::MessageSender;

@@ -14,8 +14,7 @@
 
 [workspace]
 resolver = "2"
-members = [
-    # Workspace Crates
+members = [# Workspace Crates
     "crates/multi-agent-system-core",
     "crates/multi-agent-system-sync",
     "crates/multi-agent-system-runtime",
@@ -24,8 +23,7 @@ members = [
     "multi-agent-system",
     # Internal
     "benches",
-    "examples"
-]
+    "examples"]
 
 [workspace.package]
 version = "0.1.0"
