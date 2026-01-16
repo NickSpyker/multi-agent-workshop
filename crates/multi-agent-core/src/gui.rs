@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-use super::Result;
 use eframe::{
-    egui::{Context, Ui},
     Frame,
+    egui::{Context, Ui},
 };
 use std::fmt::Debug;
 
@@ -29,22 +28,29 @@ pub trait MultiAgentGui: Debug + Default {
     const BACKGROUND_RGBA_COLOR: [u8; 4] = [12, 12, 12, 180];
     const SIDEBAR_DEFAULT_WIDTH_IN_PIXELS: f32 = 250.0;
 
-    type GuiDataOutput: Default;
+    type GuiData: Default;
     type SimulationData: Default;
 
-    type MessageFromSimulation;
-    type MessageToSimulation;
+    type MessageFromSimulation: Clone;
+    type MessageToSimulation: Clone;
 
-    fn received_messages_from_simulation(
+    fn received_messages_from_simulation(&mut self, messages: Vec<Self::MessageFromSimulation>);
+
+    fn sidebar<F>(
         &mut self,
-        messages: Vec<Self::MessageFromSimulation>,
-    ) -> Result<()>;
+        ctx: &Context,
+        frame: &mut Frame,
+        ui: &mut Ui,
+        send_messages_to_simulation: F,
+    ) where
+        F: Fn(Vec<Self::MessageToSimulation>);
 
-    fn sidebar<F>(&mut self, ctx: &Context, frame: &mut Frame, ui: &mut Ui, send_to_simulation: F)
-    where
-        F: Fn(Vec<Self::MessageToSimulation>) -> Result<()>;
-
-    fn content<F>(&mut self, ctx: &Context, frame: &mut Frame, ui: &mut Ui, send_to_simulation: F)
-    where
-        F: Fn(Vec<Self::MessageToSimulation>) -> Result<()>;
+    fn content<F>(
+        &mut self,
+        ctx: &Context,
+        frame: &mut Frame,
+        ui: &mut Ui,
+        send_messages_to_simulation: F,
+    ) where
+        F: Fn(Vec<Self::MessageToSimulation>);
 }

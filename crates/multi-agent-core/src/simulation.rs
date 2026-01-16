@@ -17,16 +17,16 @@
 use crate::Result;
 use std::{fmt::Debug, time::Duration};
 
-pub trait MultiAgentSimulation: Debug + Default {
+pub trait MultiAgentSimulation: Debug + Send + 'static {
     const FREQUENCY_IN_HZ: u64 = 30;
 
-    type GuiDataInput: Default;
+    type GuiData: Default;
     type SimulationData: Default;
 
-    type MessageFromGui;
-    type MessageToGui;
+    type MessageFromGui: Clone + Send + 'static;
+    type MessageToGui: Clone + Send + 'static;
 
-    fn new(initial_gui_data_input: Self::GuiDataInput) -> Result<Self>
+    fn new(initial_gui_data: Self::GuiData) -> Result<Self>
     where
         Self: Sized;
 
@@ -34,9 +34,9 @@ pub trait MultiAgentSimulation: Debug + Default {
 
     fn update<F>(
         &mut self,
-        gui_data_input: Self::GuiDataInput,
+        gui_data: Self::GuiData,
         delta_time: Duration,
-        send_to_gui: F,
+        send_messages_to_gui: F,
     ) -> Result<&Self::SimulationData>
     where
         F: Fn(Vec<Self::MessageToGui>) -> Result<()>;

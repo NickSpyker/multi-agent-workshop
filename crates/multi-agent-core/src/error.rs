@@ -24,8 +24,8 @@ use std::{
 #[non_exhaustive]
 pub enum Error {
     Thread(Box<dyn Any + Send + 'static>),
-    Gui(eframe::Error),
-    GuiViewAlreadyExists(String),
+    ThreadStopTimeout,
+    Gui(String),
     MessageSenderFull,
     MessageSenderDisconnected,
 }
@@ -34,8 +34,11 @@ impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             Self::Thread(err) => write!(f, "{err:?}"),
+            Self::ThreadStopTimeout => write!(
+                f,
+                "thread failed to stop within the timeout period and will be abandoned"
+            ),
             Self::Gui(err) => write!(f, "{err}"),
-            Self::GuiViewAlreadyExists(err) => write!(f, "view already exists {err}"),
             Self::MessageSenderFull => write!(f, "sending on a full channel"),
             Self::MessageSenderDisconnected => write!(f, "sending on a disconnected channel"),
         }
@@ -46,8 +49,8 @@ impl error::Error for Error {
     fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         match self {
             Self::Thread(_) => None,
-            Self::Gui(err) => Some(err),
-            Self::GuiViewAlreadyExists(_) => None,
+            Self::ThreadStopTimeout => None,
+            Self::Gui(_) => None,
             Self::MessageSenderFull => None,
             Self::MessageSenderDisconnected => None,
         }

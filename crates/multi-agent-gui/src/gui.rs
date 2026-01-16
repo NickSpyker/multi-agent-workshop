@@ -19,13 +19,15 @@ use eframe::{
     NativeOptions,
 };
 use multi_agent_core::{Error, MultiAgentGui, Result};
+use multi_agent_sync::message::{MessageReceiver, MessageSender};
 
-#[derive(Debug, Default)]
 pub struct AppGui<Interface>
 where
     Interface: MultiAgentGui + Default,
 {
     inner: Interface,
+    sender: MessageSender<Interface::MessageToSimulation>,
+    receiver: MessageReceiver<Interface::MessageFromSimulation>,
 }
 
 impl<Interface> AppGui<Interface>
@@ -33,8 +35,15 @@ where
     Interface: MultiAgentGui + Default,
 {
     #[inline]
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        sender: MessageSender<Interface::MessageToSimulation>,
+        receiver: MessageReceiver<Interface::MessageFromSimulation>,
+    ) -> Self {
+        Self {
+            inner: Interface::default(),
+            sender,
+            receiver,
+        }
     }
 
     #[inline]
@@ -51,7 +60,7 @@ where
             },
             Box::new(|_| Ok(Box::new(self))),
         )
-        .map_err(Error::Gui)
+        .map_err(|err| Error::Gui(err.to_string()))
     }
 }
 
@@ -61,11 +70,26 @@ where
 {
     #[inline]
     fn update(&mut self, ctx: &Context, frame: &mut Frame) {
+        self.inner
+            .received_messages_from_simulation(self.receiver.drain());
+
         SidePanel::left("multi-agent-gui::Gui.update[sidebar]")
             .default_width(Interface::SIDEBAR_DEFAULT_WIDTH_IN_PIXELS)
-            .show(ctx, |ui| {} /*self.inner.sidebar(ctx, frame, ui)*/);
+            .show(ctx, |ui| {
+                self.inner.sidebar(ctx, frame, ui, |messages| {
+                    for message in messages {
+                        self.sender.send_lossy(message);
+                    }
+                })
+            });
 
-        CentralPanel::default().show(ctx, |ui| {} /*self.inner.content(ctx, frame, ui)*/);
+        CentralPanel::default().show(ctx, |ui| {
+            self.inner.content(ctx, frame, ui, |messages| {
+                for message in messages {
+                    self.sender.send_lossy(message);
+                }
+            })
+        });
     }
 
     #[inline]

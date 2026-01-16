@@ -33,6 +33,7 @@ default = []
 [dependencies]
 # Workspace Internal Crates
 multi-agent-core.workspace = true
+multi-agent-sync.workspace = true
 # Graphical User Interface
 eframe.workspace = true
 
