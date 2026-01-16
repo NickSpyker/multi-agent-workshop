@@ -15,8 +15,6 @@
  */
 
 mod gui;
-mod view;
 
 pub use eframe::{self, egui};
-pub use gui::Gui;
-pub use view::View;
+pub use gui::AppGui;

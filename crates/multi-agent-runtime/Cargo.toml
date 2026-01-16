@@ -31,6 +31,10 @@ repository.workspace = true
 default = []
 
 [dependencies]
+# Workspace Internal Crates
+multi-agent-core.workspace = true
+multi-agent-sync.workspace = true
+multi-agent-gui.workspace = true
 
 [lints]
 workspace = true

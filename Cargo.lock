@@ -1886,7 +1886,7 @@ name = "multi-agent"
 version = "0.1.0"
 dependencies = [
  "multi-agent-core",
- "multi-agent-gui",
+ "multi-agent-runtime",
 ]
 
 [[package]]
@@ -1907,6 +1907,11 @@ dependencies = [
 [[package]]
 name = "multi-agent-runtime"
 version = "0.1.0"
+dependencies = [
+ "multi-agent-core",
+ "multi-agent-gui",
+ "multi-agent-sync",
+]
 
 [[package]]
 name = "multi-agent-sync"

@@ -57,8 +57,8 @@ mod tests {
     use super::{GuardArc, Shared};
     use std::{
         sync::{
-            atomic::{AtomicBool, Ordering},
             Arc,
+            atomic::{AtomicBool, Ordering},
         },
         thread::{self, JoinHandle},
         time::{Duration, Instant},

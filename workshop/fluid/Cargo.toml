@@ -3,4 +3,4 @@ name = "fluid"
 edition = "2024"
 
 [dependencies]
-multi-agent-system.workspace = true
+multi-agent.workspace = true

@@ -15,9 +15,11 @@
  */
 
 mod error;
+mod gui;
 mod result;
-mod system;
+mod simulation;
 
 pub use error::Error;
+pub use gui::MultiAgentGui;
 pub use result::Result;
-pub use system::System;
+pub use simulation::MultiAgentSimulation;

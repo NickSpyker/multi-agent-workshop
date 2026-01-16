@@ -28,6 +28,7 @@ readme.workspace = true
 repository.workspace = true
 
 [dependencies]
+# Graphical User Interface
 eframe.workspace = true
 
 [features]

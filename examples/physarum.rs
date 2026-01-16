@@ -14,10 +14,4 @@
  * limitations under the License.
  */
 
-use multi_agent::{App, Result};
-
-fn main() -> Result<()> {
-    let app = App::new();
-
-    app.run()
-}
+fn main() {}

@@ -16,6 +16,5 @@
 
 mod app;
 
-pub use app::App;
-
-pub use multi_agent_core::{Error, Result, System};
+pub use app::AppLauncher;
+pub use multi_agent_core::{Error, MultiAgentSimulation, Result};

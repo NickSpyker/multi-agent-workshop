@@ -29,43 +29,31 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/multi-agent-workshop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Rename multi-agent-system-* to multi-agent-*">
+      <change afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benches/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/benches/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/benches/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/benches/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-core/src/error.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/error.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-core/src/result.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/result.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-core/src/system.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/system.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-gui/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-gui/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/gui.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-gui/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-gui/src/view.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/view.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-runtime/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-runtime/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/message/channel.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/message/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/message/receiver.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/receiver.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/message/sender.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/sender.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/multi-agent-system-sync/src/shared.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/examples/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/system.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-gui/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/gui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-gui/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-gui/src/view.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-runtime/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-runtime/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/boids.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/boids.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/fluid.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fluid.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/game_of_life.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/game_of_life.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/physarum.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/physarum.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi-agent-system/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi-agent-system/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi-agent-system/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi-agent/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi-agent/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/app.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi-agent/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workshop/boids/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/boids/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" afterDir="false" />
@@ -78,6 +66,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Rust File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -100,6 +95,9 @@
   "associatedIndex": 6
 }]]></component>
   <component name="ProjectId" id="38KppKHXf75Awp5Q68TQsPLXgcS" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -107,6 +105,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Cargo.Test multi-agent-workshop.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -162,11 +161,24 @@
       <option name="presentableId" value="Default" />
       <updated>1722191757172</updated>
       <workItem from="1722191758257" duration="44000" />
-      <workItem from="1768558300030" duration="780000" />
+      <workItem from="1768558300030" duration="11907000" />
     </task>
+    <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
+      <option name="closed" value="true" />
+      <created>1768559126877</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1768559126877</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Rename multi-agent-system-* to multi-agent-*" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename multi-agent-system-* to multi-agent-*" />
   </component>
 </project>

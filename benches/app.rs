@@ -15,11 +15,8 @@
  */
 
 use criterion::{Criterion, criterion_group, criterion_main};
-use multi_agent::App;
 
-fn setup(_c: &mut Criterion) {
-    let _app = App::new();
-}
+fn setup(_c: &mut Criterion) {}
 
 criterion_group!(app, setup);
 

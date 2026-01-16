@@ -25,18 +25,8 @@ pub struct MessageChannel<T> {
 
 impl<T> MessageChannel<T> {
     #[inline]
-    pub fn bounded(capacity: usize) -> Self {
+    pub fn new(capacity: usize) -> Self {
         let (sender, receiver): (Sender<T>, Receiver<T>) = channel::bounded(capacity);
-
-        Self {
-            sender: MessageSender::new(sender),
-            receiver: MessageReceiver::new(receiver),
-        }
-    }
-
-    #[inline]
-    pub fn unbounded() -> Self {
-        let (sender, receiver): (Sender<T>, Receiver<T>) = channel::unbounded();
 
         Self {
             sender: MessageSender::new(sender),
