@@ -19,7 +19,7 @@ use eframe::{
     egui::{CentralPanel, Color32, ComboBox, Context, SidePanel, ViewportBuilder, Visuals}, App, Frame,
     NativeOptions,
 };
-use multi_agent_system_core::{Error, Result};
+use multi_agent_core::{Error, Result};
 use std::collections::HashMap;
 
 #[derive(Debug, Default)]

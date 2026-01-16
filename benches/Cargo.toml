@@ -31,7 +31,7 @@ repository.workspace = true
 criterion = { version = "0.8.1", features = ["default"] }
 
 [dev-dependencies]
-multi-agent-system = { path = "../multi-agent-system", features = ["default"] }
+multi-agent = { path = "../multi-agent", features = ["default"] }
 
 [lints]
 workspace = true

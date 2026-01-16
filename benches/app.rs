@@ -15,7 +15,7 @@
  */
 
 use criterion::{Criterion, criterion_group, criterion_main};
-use multi_agent_system::App;
+use multi_agent::App;
 
 fn setup(_c: &mut Criterion) {
     let _app = App::new();

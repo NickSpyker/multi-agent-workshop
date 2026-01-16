@@ -15,7 +15,7 @@
  */
 
 use crossbeam_channel::{Sender, TrySendError};
-use multi_agent_system_core::{Error, Result};
+use multi_agent_core::{Error, Result};
 use std::fmt::Debug;
 
 #[derive(Debug, Clone)]

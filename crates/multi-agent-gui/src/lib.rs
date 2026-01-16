@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-mod app;
+mod gui;
+mod view;
 
-pub use app::App;
-
-pub use multi_agent_system_core::{Error, Result, System};
+pub use eframe::{self, egui};
+pub use gui::Gui;
+pub use view::View;

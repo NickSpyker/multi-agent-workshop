@@ -447,7 +447,7 @@ name = "benches"
 version = "0.0.0"
 dependencies = [
  "criterion",
- "multi-agent-system",
+ "multi-agent",
 ]
 
 [[package]]
@@ -1173,7 +1173,7 @@ dependencies = [
 name = "examples"
 version = "0.0.0"
 dependencies = [
- "multi-agent-system",
+ "multi-agent",
 ]
 
 [[package]]
@@ -1882,39 +1882,39 @@ dependencies = [
 ]
 
 [[package]]
-name = "multi-agent-system"
+name = "multi-agent"
 version = "0.1.0"
 dependencies = [
- "multi-agent-system-core",
- "multi-agent-system-gui",
+ "multi-agent-core",
+ "multi-agent-gui",
 ]
 
 [[package]]
-name = "multi-agent-system-core"
-version = "0.1.0"
-dependencies = [
- "eframe",
-]
-
-[[package]]
-name = "multi-agent-system-gui"
+name = "multi-agent-core"
 version = "0.1.0"
 dependencies = [
  "eframe",
- "multi-agent-system-core",
 ]
 
 [[package]]
-name = "multi-agent-system-runtime"
+name = "multi-agent-gui"
+version = "0.1.0"
+dependencies = [
+ "eframe",
+ "multi-agent-core",
+]
+
+[[package]]
+name = "multi-agent-runtime"
 version = "0.1.0"
 
 [[package]]
-name = "multi-agent-system-sync"
+name = "multi-agent-sync"
 version = "0.1.0"
 dependencies = [
  "arc-swap",
  "crossbeam-channel",
- "multi-agent-system-core",
+ "multi-agent-core",
 ]
 
 [[package]]

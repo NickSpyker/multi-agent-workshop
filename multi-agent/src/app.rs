@@ -14,8 +14,31 @@
  * limitations under the License.
  */
 
-mod gui;
-mod view;
+use multi_agent_core::Result;
+use multi_agent_gui::{Gui, View};
 
-pub use gui::Gui;
-pub use view::View;
+#[derive(Debug, Default)]
+pub struct App {
+    gui: Gui,
+}
+
+impl App {
+    #[inline]
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn run(self) -> Result<()> {
+        self.gui.run()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::App;
+
+    #[test]
+    fn test_app_new() {
+        let _app = App::new();
+    }
+}

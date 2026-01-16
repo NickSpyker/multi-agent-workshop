@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name = "multi-agent-system-runtime"
+name = "multi-agent-sync"
 version.workspace = true
 authors.workspace = true
 categories.workspace = true
@@ -31,6 +31,11 @@ repository.workspace = true
 default = []
 
 [dependencies]
+# Workspace Internal Crates
+multi-agent-core.workspace = true
+# Sync
+crossbeam-channel.workspace = true
+arc-swap.workspace = true
 
 [lints]
 workspace = true

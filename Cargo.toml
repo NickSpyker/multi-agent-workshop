@@ -15,13 +15,13 @@
 [workspace]
 resolver = "2"
 members = [
-    # Workspace Crates
-    "crates/multi-agent-system-core",
-    "crates/multi-agent-system-sync",
-    "crates/multi-agent-system-runtime",
-    "crates/multi-agent-system-gui",
+    # Workspace Internal Crates
+    "crates/multi-agent-core",
+    "crates/multi-agent-sync",
+    "crates/multi-agent-runtime",
+    "crates/multi-agent-gui",
     # Main Library
-    "multi-agent-system",
+    "multi-agent",
     # Internal
     "benches",
     "examples"
@@ -39,14 +39,14 @@ keywords = [] # TODO: 5 keywords
 license = "MIT OR Apache-2.0"
 publish = true
 readme = "README.md"
-repository = "https://github.com/NickSpyker/multi-agent-systems"
+repository = "https://github.com/NickSpyker/multi-agent-workshop"
 
 [workspace.dependencies]
-# Workspace Crates
-multi-agent-system-core = { path = "crates/multi-agent-system-core", features = ["default"] }
-multi-agent-system-sync = { path = "crates/multi-agent-system-sync", features = ["default"] }
-multi-agent-system-runtime = { path = "crates/multi-agent-system-runtime", features = ["default"] }
-multi-agent-system-gui = { path = "crates/multi-agent-system-gui", features = ["default"] }
+# Workspace Internal Crates
+multi-agent-core = { path = "crates/multi-agent-core", features = ["default"] }
+multi-agent-sync = { path = "crates/multi-agent-sync", features = ["default"] }
+multi-agent-runtime = { path = "crates/multi-agent-runtime", features = ["default"] }
+multi-agent-gui = { path = "crates/multi-agent-gui", features = ["default"] }
 # Sync
 crossbeam-channel = { version = "0.5.15", features = ["default"] }
 arc-swap = { version = "1.8.0", features = [] }

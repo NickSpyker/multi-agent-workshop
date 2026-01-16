@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name = "multi-agent-system-gui"
+name = "multi-agent-runtime"
 version.workspace = true
 authors.workspace = true
 categories.workspace = true
@@ -31,8 +31,6 @@ repository.workspace = true
 default = []
 
 [dependencies]
-multi-agent-system-core.workspace = true
-eframe.workspace = true
 
 [lints]
 workspace = true

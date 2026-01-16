@@ -1,3 +1,6 @@
 [package]
 name = "game-of-life"
 edition = "2024"
+
+[dependencies]
+multi-agent-system.workspace = true
