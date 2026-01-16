@@ -52,8 +52,8 @@ where
             Interface::APP_NAME,
             NativeOptions {
                 viewport: ViewportBuilder::default()
-                    .with_min_inner_size(Interface::MAX_WINDOW_SIZE_IN_PIXELS)
-                    .with_max_inner_size(Interface::MAX_WINDOW_SIZE_IN_PIXELS)
+                    .with_min_inner_size(Interface::MIN_WINDOW_SIZE_IN_PIXELS)
+                    .with_inner_size(Interface::WINDOW_SIZE_IN_PIXELS)
                     .with_maximized(true),
                 centered: true,
                 ..NativeOptions::default()
@@ -76,19 +76,13 @@ where
         SidePanel::left("multi-agent-gui::Gui.update[sidebar]")
             .default_width(Interface::SIDEBAR_DEFAULT_WIDTH_IN_PIXELS)
             .show(ctx, |ui| {
-                self.inner.sidebar(ctx, frame, ui, |messages| {
-                    for message in messages {
-                        self.sender.send_lossy(message);
-                    }
-                })
+                self.inner
+                    .sidebar(ctx, frame, ui, |message| self.sender.send_lossy(message))
             });
 
         CentralPanel::default().show(ctx, |ui| {
-            self.inner.content(ctx, frame, ui, |messages| {
-                for message in messages {
-                    self.sender.send_lossy(message);
-                }
-            })
+            self.inner
+                .content(ctx, frame, ui, |message| self.sender.send_lossy(message))
         });
     }
 

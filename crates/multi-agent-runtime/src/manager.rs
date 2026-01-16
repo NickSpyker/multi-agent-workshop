@@ -16,7 +16,7 @@
 
 use multi_agent_core::{Error, MultiAgentGui, MultiAgentSimulation, Result};
 use multi_agent_gui::AppGui;
-use multi_agent_sync::message::{MessageChannel, MessageReceiver, MessageSender};
+use multi_agent_sync::message::MessageChannel;
 use std::{
     sync::{
         atomic::{AtomicBool, Ordering},
@@ -26,39 +26,22 @@ use std::{
     time::{Duration, Instant},
 };
 
-pub struct MultiAgentRuntimeManager<Simulation, Gui>
-where
-    Simulation: MultiAgentSimulation,
-    Gui: MultiAgentGui<
-            GuiData = Simulation::GuiData,
-            SimulationData = Simulation::SimulationData,
-            MessageFromSimulation = Simulation::MessageToGui,
-            MessageToSimulation = Simulation::MessageFromGui,
-        >,
-{
-    simulation: Simulation,
-    gui: AppGui<Gui>,
-    sim_sender: MessageSender<Simulation::MessageToGui>,
-    sim_receiver: MessageReceiver<Simulation::MessageFromGui>,
-}
+pub struct MultiAgentRuntimeManager;
 
-impl<Simulation, Gui> MultiAgentRuntimeManager<Simulation, Gui>
-where
-    Simulation: MultiAgentSimulation,
-    Gui: MultiAgentGui<
-            GuiData = Simulation::GuiData,
-            SimulationData = Simulation::SimulationData,
-            MessageFromSimulation = Simulation::MessageToGui,
-            MessageToSimulation = Simulation::MessageFromGui,
-        >,
-{
+impl MultiAgentRuntimeManager {
     #[inline]
-    pub fn new(message_channel_capacity: usize) -> Result<Self> {
-        let channel_sim_to_gui: MessageChannel<Simulation::MessageToGui> =
-            MessageChannel::new(message_channel_capacity);
-
-        let channel_gui_to_sim: MessageChannel<Gui::MessageToSimulation> =
-            MessageChannel::new(message_channel_capacity);
+    pub fn run<Simulation, Gui>() -> Result<()>
+    where
+        Simulation: MultiAgentSimulation,
+        Gui: MultiAgentGui<
+                GuiData = Simulation::GuiData,
+                SimulationData = Simulation::SimulationData,
+                MessageFromSimulation = Simulation::MessageToGui,
+                MessageToSimulation = Simulation::MessageFromGui,
+            >,
+    {
+        let channel_sim_to_gui: MessageChannel<Simulation::MessageToGui> = MessageChannel::new(10);
+        let channel_gui_to_sim: MessageChannel<Gui::MessageToSimulation> = MessageChannel::new(10);
 
         let (sim_sender, gui_receiver) = channel_sim_to_gui.split();
         let (gui_sender, sim_receiver) = channel_gui_to_sim.split();
@@ -66,24 +49,7 @@ where
         let gui: AppGui<Gui> = AppGui::new(gui_sender, gui_receiver);
 
         let initial_gui_data_input: Gui::GuiData = Gui::GuiData::default();
-        let simulation: Simulation = Simulation::new(initial_gui_data_input)?;
-
-        Ok(Self {
-            gui,
-            simulation,
-            sim_sender,
-            sim_receiver,
-        })
-    }
-
-    #[inline]
-    pub fn run(self) -> Result<()> {
-        let Self {
-            mut simulation,
-            gui,
-            sim_sender,
-            sim_receiver,
-        }: Self = self;
+        let mut simulation: Simulation = Simulation::new(initial_gui_data_input)?;
 
         let stop_gui: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
         let stop_simulator: Arc<AtomicBool> = Arc::clone(&stop_gui);
@@ -101,16 +67,12 @@ where
                 let delta_time: Duration = now.duration_since(delta);
                 delta = now;
 
-                let messages: Vec<Simulation::MessageFromGui> = sim_receiver.drain();
-                simulation.receive_messages_from_gui(messages)?;
-
-                let simulation_daya: &Simulation::SimulationData =
-                    simulation.update(Simulation::GuiData::default(), delta_time, |messages| {
-                        for message in messages {
-                            sim_sender.send(message)?;
-                        }
-                        Ok(())
-                    })?;
+                let simulation_data: &Simulation::SimulationData = simulation.update(
+                    Simulation::GuiData::default(),
+                    sim_receiver.drain(),
+                    delta_time,
+                    |message| sim_sender.send(message),
+                )?;
 
                 let now: Instant = Instant::now();
                 let duration: Duration = now.duration_since(delta);

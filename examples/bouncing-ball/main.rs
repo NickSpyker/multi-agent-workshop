@@ -14,4 +14,14 @@
  * limitations under the License.
  */
 
-fn main() {}
+mod data;
+mod gui;
+mod message;
+mod simulator;
+
+use gui::BouncingBallGui;
+use simulator::BouncingBallSimulator;
+
+fn main() -> multi_agent::Result<()> {
+    multi_agent::AppLauncher::run::<BouncingBallSimulator, BouncingBallGui>()
+}

@@ -16,4 +16,4 @@
 
 use multi_agent_runtime::MultiAgentRuntimeManager;
 
-pub type AppLauncher<Simulation, Interface> = MultiAgentRuntimeManager<Simulation, Interface>;
+pub type AppLauncher = MultiAgentRuntimeManager;

@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-fn main() {}
+#[derive(Debug, Clone)]
+pub enum MessageFromSimulatorToGui {}
+
+#[derive(Debug, Clone)]
+pub enum MessageFromGuiToSimulator {
+    Pause,
+    Resume,
+    RecalculateArea,
+}

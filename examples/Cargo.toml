@@ -34,17 +34,5 @@ multi-agent = { path = "../multi-agent", features = ["default"] }
 workspace = true
 
 [[example]]
-name = "game-of-life"
-path = "game_of_life.rs"
-
-[[example]]
-name = "boids"
-path = "boids.rs"
-
-[[example]]
-name = "fluid"
-path = "fluid.rs"
-
-[[example]]
-name = "physarum"
-path = "physarum.rs"
+name = "bouncing-ball"
+path = "bouncing-ball/main.rs"

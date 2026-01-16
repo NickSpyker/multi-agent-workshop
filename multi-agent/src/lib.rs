@@ -17,4 +17,5 @@
 mod app;
 
 pub use app::AppLauncher;
-pub use multi_agent_core::{Error, MultiAgentSimulation, Result};
+pub use multi_agent_core::{Error, MultiAgentGui, MultiAgentSimulation, Result};
+pub use multi_agent_gui::{eframe, egui};

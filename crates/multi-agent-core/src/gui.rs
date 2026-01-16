@@ -15,16 +15,16 @@
  */
 
 use eframe::{
-    Frame,
     egui::{Context, Ui},
+    Frame,
 };
 use std::fmt::Debug;
 
 pub trait MultiAgentGui: Debug + Default {
     const APP_NAME: &'static str;
 
+    const WINDOW_SIZE_IN_PIXELS: [f32; 2] = [1280.0, 720.0];
     const MIN_WINDOW_SIZE_IN_PIXELS: [f32; 2] = [896.0, 504.0];
-    const MAX_WINDOW_SIZE_IN_PIXELS: [f32; 2] = [5000.0, 5000.0];
     const BACKGROUND_RGBA_COLOR: [u8; 4] = [12, 12, 12, 180];
     const SIDEBAR_DEFAULT_WIDTH_IN_PIXELS: f32 = 250.0;
 
@@ -41,16 +41,16 @@ pub trait MultiAgentGui: Debug + Default {
         ctx: &Context,
         frame: &mut Frame,
         ui: &mut Ui,
-        send_messages_to_simulation: F,
+        send_message_to_simulation: F,
     ) where
-        F: Fn(Vec<Self::MessageToSimulation>);
+        F: Fn(Self::MessageToSimulation);
 
     fn content<F>(
         &mut self,
         ctx: &Context,
         frame: &mut Frame,
         ui: &mut Ui,
-        send_messages_to_simulation: F,
+        send_message_to_simulation: F,
     ) where
-        F: Fn(Vec<Self::MessageToSimulation>);
+        F: Fn(Self::MessageToSimulation);
 }

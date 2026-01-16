@@ -1886,6 +1886,7 @@ name = "multi-agent"
 version = "0.1.0"
 dependencies = [
  "multi-agent-core",
+ "multi-agent-gui",
  "multi-agent-runtime",
 ]
 

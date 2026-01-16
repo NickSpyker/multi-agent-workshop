@@ -34,6 +34,7 @@ default = []
 # Workspace Internal Crates
 multi-agent-core.workspace = true
 multi-agent-runtime.workspace = true
+multi-agent-gui.workspace = true
 
 [lints]
 workspace = true

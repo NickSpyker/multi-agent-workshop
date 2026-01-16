@@ -20,8 +20,8 @@ use std::{fmt::Debug, time::Duration};
 pub trait MultiAgentSimulation: Debug + Send + 'static {
     const FREQUENCY_IN_HZ: u64 = 30;
 
-    type GuiData: Default;
     type SimulationData: Default;
+    type GuiData: Default;
 
     type MessageFromGui: Clone + Send + 'static;
     type MessageToGui: Clone + Send + 'static;
@@ -30,14 +30,13 @@ pub trait MultiAgentSimulation: Debug + Send + 'static {
     where
         Self: Sized;
 
-    fn receive_messages_from_gui(&mut self, messages: Vec<Self::MessageFromGui>) -> Result<()>;
-
     fn update<F>(
         &mut self,
         gui_data: Self::GuiData,
+        messages: Vec<Self::MessageFromGui>,
         delta_time: Duration,
-        send_messages_to_gui: F,
+        send_message_to_gui: F,
     ) -> Result<&Self::SimulationData>
     where
-        F: Fn(Vec<Self::MessageToGui>) -> Result<()>;
+        F: Fn(Self::MessageToGui) -> Result<()>;
 }
