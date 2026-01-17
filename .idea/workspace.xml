@@ -30,6 +30,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add gravity to bouncing ball example">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Test.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" afterDir="false" />
     </list>
@@ -38,7 +39,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:dev" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -112,7 +113,7 @@
       <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\simulation" />
     </key>
   </component>
-  <component name="RunManager" selected="Cargo.Run Example Bouncing Balls">
+  <component name="RunManager" selected="Cargo.Test">
     <list>
       <item itemvalue="Cargo.Test" />
       <item itemvalue="Cargo.Run Example Bouncing Balls" />
@@ -130,7 +131,7 @@
       <updated>1722191757172</updated>
       <workItem from="1722191758257" duration="44000" />
       <workItem from="1768558300030" duration="27223000" />
-      <workItem from="1768642397053" duration="6167000" />
+      <workItem from="1768642397053" duration="6222000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -180,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768647766493</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add gravity to bouncing ball example">
+      <option name="closed" value="true" />
+      <created>1768648624079</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1768648624079</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

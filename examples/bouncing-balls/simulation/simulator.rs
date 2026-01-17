@@ -90,7 +90,7 @@ impl BouncingBallsSimulator {
             dx,
             dy,
             radius,
-            color,
+            color: _,
         } in self.balls.iter_mut()
         {
             let is_in_area_x: bool = *radius <= *x && *x <= width - *radius;
@@ -145,7 +145,7 @@ impl MultiAgentSimulation for BouncingBallsSimulator {
         gui_data: Self::GuiData,
         messages: Vec<Self::MessageFromGui>,
         delta_time: Duration,
-        send_message_to_gui: F,
+        _send_message_to_gui: F,
     ) -> multi_agent::Result<&Self::SimulationData>
     where
         F: Fn(Self::MessageToGui) -> multi_agent::Result<()>,
