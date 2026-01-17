@@ -30,12 +30,12 @@ members = [
 [workspace.package]
 version = "0.1.0"
 authors = ["Nicolas Spijkerman <nicospijke@gmail.com>"]
-categories = [] # TODO: categories
+categories = ["simulation", "algorithms", "gui"]
 description = "A Rust workshop with a ready-made GUI for building and visualizing multi-agent simulations"
 documentation = "TODO"
 edition = "2024"
 homepage = "TODO"
-keywords = [] # TODO: 5 keywords
+keywords = ["multi-agent", "visualization", "workshop", "egui", "concurrent"]
 license = "MIT OR Apache-2.0"
 publish = true
 readme = "README.md"
