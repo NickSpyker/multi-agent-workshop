@@ -29,10 +29,8 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Finish bouncing ball example">
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add gravity to bouncing ball example">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/data.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +130,7 @@
       <updated>1722191757172</updated>
       <workItem from="1722191758257" duration="44000" />
       <workItem from="1768558300030" duration="27223000" />
-      <workItem from="1768642397053" duration="5313000" />
+      <workItem from="1768642397053" duration="6167000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -174,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768647228493</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add gravity to bouncing ball example">
+      <option name="closed" value="true" />
+      <created>1768647766493</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1768647766493</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +192,7 @@
     <MESSAGE value="Fix runtime sharing trait" />
     <MESSAGE value="Add bouncing ball example" />
     <MESSAGE value="Finish bouncing ball example" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish bouncing ball example" />
+    <MESSAGE value="Add gravity to bouncing ball example" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add gravity to bouncing ball example" />
   </component>
 </project>

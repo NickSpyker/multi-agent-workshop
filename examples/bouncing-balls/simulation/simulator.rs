@@ -29,13 +29,14 @@ pub struct BouncingBallsSimulator {
 impl BouncingBallsSimulator {
     const DELTA_TIME_SCALING: f32 = 50.0;
     const GRAVITY: f32 = 9.81;
-    const BOUNCE_DAMPING: f32 = 0.8;
+    const BOUNCE_DAMPING: f32 = 0.90;
+    const RADIUS_RANGE: [f32; 2] = [5.0, 10.0];
 
     fn add_balls(&mut self, count: usize, max_x: f32, max_y: f32) {
         let mut rng: ThreadRng = rand::rng();
 
         for _ in 0..count {
-            let radius: f32 = rng.random_range(5.0..10.0);
+            let radius: f32 = rng.random_range(Self::RADIUS_RANGE[0]..Self::RADIUS_RANGE[1]);
 
             self.balls.push(BouncingBall {
                 x: rng.random_range(0.0..max_x - radius),
@@ -63,8 +64,8 @@ impl BouncingBallsSimulator {
     fn shake(&mut self) {
         let mut rng: ThreadRng = rand::rng();
         for ball in self.balls.iter_mut() {
-            ball.dx = rng.random_range(-5.0..5.0);
-            ball.dy = rng.random_range(-10.0..-5.0);
+            ball.dx = rng.random_range(-50.0..50.0);
+            ball.dy = rng.random_range(-50.0..-10.0);
         }
     }
 
@@ -99,20 +100,22 @@ impl BouncingBallsSimulator {
                 continue;
             }
 
+            let bounce_damping: f32 = Self::BOUNCE_DAMPING / (*radius / Self::RADIUS_RANGE[0]);
+
             if *x - *radius < 0.0 {
                 *x = *radius;
-                *dx = -*dx * Self::BOUNCE_DAMPING;
+                *dx = -*dx * bounce_damping;
             } else if *x + *radius > width {
                 *x = width - *radius;
-                *dx = -*dx * Self::BOUNCE_DAMPING;
+                *dx = -*dx * bounce_damping;
             }
 
             if *y - *radius < 0.0 {
                 *y = *radius;
-                *dy = -*dy * Self::BOUNCE_DAMPING;
+                *dy = -*dy * bounce_damping;
             } else if *y + *radius > height {
                 *y = height - *radius;
-                *dy = -*dy * Self::BOUNCE_DAMPING;
+                *dy = -*dy * bounce_damping;
                 if dy.abs() < 0.5 {
                     *dy = 0.0;
                 }
