@@ -17,4 +17,8 @@
 use crate::Error;
 use std::result;
 
+/// A type alias for `Result<T, Error>`.
+///
+/// This is a convenience alias used throughout the library to avoid
+/// repeating `Result<T, crate::Error>` in function signatures.
 pub type Result<T> = result::Result<T, Error>;

@@ -29,16 +29,27 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix unused variable warnings">
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add categories and keywords">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/error.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/error.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/guard_arc.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/guard_arc.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/result.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/result.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/receiver.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/receiver.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/sender.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/sender.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi-agent/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/app.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:dev" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -47,6 +58,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -69,6 +85,7 @@
 }</component>
   <component name="ProjectId" id="38KppKHXf75Awp5Q68TQsPLXgcS" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -89,7 +106,7 @@
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Spijkerman/Repositories/multi-agent-workshop",
@@ -112,7 +129,7 @@
       <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\simulation" />
     </key>
   </component>
-  <component name="RunManager" selected="Cargo.Test">
+  <component name="RunManager" selected="Cargo.Run Example Bouncing Balls">
     <list>
       <item itemvalue="Cargo.Test" />
       <item itemvalue="Cargo.Run Example Bouncing Balls" />
@@ -130,7 +147,7 @@
       <updated>1722191757172</updated>
       <workItem from="1722191758257" duration="44000" />
       <workItem from="1768558300030" duration="27223000" />
-      <workItem from="1768642397053" duration="6441000" />
+      <workItem from="1768642397053" duration="9110000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -196,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768648692614</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add categories and keywords">
+      <option name="closed" value="true" />
+      <created>1768648907068</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1768648907068</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,6 +235,7 @@
     <MESSAGE value="Finish bouncing ball example" />
     <MESSAGE value="Add gravity to bouncing ball example" />
     <MESSAGE value="Fix unused variable warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix unused variable warnings" />
+    <MESSAGE value="Add categories and keywords" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add categories and keywords" />
   </component>
 </project>

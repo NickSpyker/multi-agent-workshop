@@ -17,4 +17,29 @@
 use arc_swap::Guard;
 use std::sync::Arc;
 
+/// A lock-free read guard for simulation data shared between threads.
+///
+/// `GuardArc<T>` provides read-only access to simulation data without blocking writes.
+/// It uses the `arc-swap` crate internally to enable wait-free reads, ensuring the GUI
+/// thread never blocks the simulation thread.
+///
+/// # Usage
+///
+/// You receive `GuardArc<SimulationData>` as a parameter in the `sidebar()` and `content()`
+/// methods of `MultiAgentGui`. Use it like a reference via the `Deref` trait:
+///
+/// ```no_run
+/// # use multi_agent_core::GuardArc;
+/// # struct Agent { x: f32 }
+/// fn render_agents(data: &GuardArc<Vec<Agent>>) {
+///     for agent in data.iter() {  // Automatic deref to &Vec<Agent>
+///         println!("Agent at x={}", agent.x);
+///     }
+/// }
+/// ```
+///
+/// # Performance
+///
+/// Reading through `GuardArc` is extremely fast (a few atomic operations) and never blocks.
+/// The simulation thread can update the data concurrently without waiting for readers.
 pub type GuardArc<T> = Guard<Arc<T>>;

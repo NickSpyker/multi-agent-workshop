@@ -18,12 +18,60 @@ use arc_swap::ArcSwap;
 use multi_agent_core::GuardArc;
 use std::sync::Arc;
 
+/// A lock-free container for sharing data between threads.
+///
+/// `Shared<T>` enables safe, concurrent access to data without traditional locks.
+/// Multiple threads can read simultaneously without blocking each other or the writer.
+/// This is ideal for sharing simulation state between the simulation and GUI threads.
+///
+/// # Lock-Free Guarantees
+///
+/// - **Reads never block**: Multiple readers can access data concurrently
+/// - **Writes never block readers**: The writer creates a new version while readers see the old
+/// - **Wait-free reads**: Read operations complete in bounded time regardless of other threads
+///
+/// # Performance
+///
+/// - Reading is extremely fast (a few atomic operations)
+/// - Writing requires cloning the data, so minimize write frequency for large data
+/// - Ideal for "single writer, multiple readers" patterns
+///
+/// # Example
+///
+/// ```no_run
+/// use multi_agent_sync::Shared;
+///
+/// #[derive(Clone)]
+/// struct GameState {
+///     score: u32,
+/// }
+///
+/// let state = Shared::new(GameState { score: 0 });
+///
+/// // Read (lock-free, never blocks)
+/// let current = state.load();
+/// println!("Score: {}", current.score);
+///
+/// // Write (creates new version)
+/// state.store(GameState { score: 100 });
+///
+/// // Update (read-copy-update pattern)
+/// state.update(|s| s.score += 10);
+/// ```
 #[derive(Debug, Clone)]
 pub struct Shared<T: Clone> {
     inner: Arc<ArcSwap<T>>,
 }
 
 impl<T: Clone> Shared<T> {
+    /// Creates a new `Shared` container with the given initial data.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::Shared;
+    /// let shared = Shared::new(vec![1, 2, 3]);
+    /// ```
     #[inline]
     pub fn new(data: T) -> Self {
         Self {
@@ -31,16 +79,61 @@ impl<T: Clone> Shared<T> {
         }
     }
 
+    /// Returns a lock-free guard to read the current data.
+    ///
+    /// The returned `GuardArc<T>` can be dereferenced to access the data.
+    /// Multiple threads can call `load()` concurrently without blocking.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::Shared;
+    /// # let shared = Shared::new(vec![1, 2, 3]);
+    /// let data = shared.load();
+    /// println!("Length: {}", data.len());  // Deref to &Vec<i32>
+    /// ```
     #[inline]
     pub fn load(&self) -> GuardArc<T> {
         self.inner.load()
     }
 
+    /// Stores new data, replacing the previous version.
+    ///
+    /// This operation is atomic and never blocks readers. Readers will see either
+    /// the old or new version, never a partial update.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::Shared;
+    /// # let shared = Shared::new(vec![1, 2, 3]);
+    /// shared.store(vec![4, 5, 6]);
+    /// ```
     #[inline]
     pub fn store(&self, data: T) {
         self.inner.store(Arc::new(data));
     }
 
+    /// Updates the data using a read-copy-update pattern.
+    ///
+    /// This method:
+    /// 1. Reads the current data
+    /// 2. Clones it
+    /// 3. Applies your mutation function
+    /// 4. Stores the modified copy
+    ///
+    /// The closure receives a mutable reference to a clone of the data.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::Shared;
+    /// # #[derive(Clone)] struct State { count: u32 }
+    /// # let shared = Shared::new(State { count: 0 });
+    /// shared.update(|state| {
+    ///     state.count += 1;
+    /// });
+    /// ```
     #[inline]
     pub fn update<F: Fn(&mut T)>(&self, f: F) {
         self.inner.rcu(|current_data: &Arc<T>| {

@@ -17,6 +17,37 @@
 use super::{MessageReceiver, MessageSender};
 use crossbeam_channel::{self as channel, Receiver, Sender};
 
+/// A bounded message channel for sending discrete events between threads.
+///
+/// `MessageChannel<T>` provides a pair of `MessageSender` and `MessageReceiver`
+/// for communicating one-off events (like button clicks) between the GUI and
+/// simulation threads.
+///
+/// # Bounded Capacity
+///
+/// The channel has a fixed capacity. If the channel is full, sends will fail
+/// gracefully (using `send_lossy`) rather than blocking or panicking.
+///
+/// # Example
+///
+/// ```no_run
+/// use multi_agent_sync::message::MessageChannel;
+///
+/// #[derive(Clone)]
+/// enum Command {
+///     Start,
+///     Stop,
+/// }
+///
+/// let channel = MessageChannel::new(10);  // Capacity of 10 messages
+/// let (sender, receiver) = channel.split();
+///
+/// // Send a message
+/// sender.send_lossy(Command::Start);
+///
+/// // Receive all pending messages
+/// let messages = receiver.drain();
+/// ```
 #[derive(Debug)]
 pub struct MessageChannel<T> {
     pub sender: MessageSender<T>,
@@ -24,6 +55,18 @@ pub struct MessageChannel<T> {
 }
 
 impl<T> MessageChannel<T> {
+    /// Creates a new bounded message channel with the specified capacity.
+    ///
+    /// # Arguments
+    ///
+    /// * `capacity` - Maximum number of messages that can be buffered
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::message::MessageChannel;
+    /// let channel = MessageChannel::<String>::new(100);
+    /// ```
     #[inline]
     pub fn new(capacity: usize) -> Self {
         let (sender, receiver): (Sender<T>, Receiver<T>) = channel::bounded(capacity);
@@ -34,6 +77,18 @@ impl<T> MessageChannel<T> {
         }
     }
 
+    /// Splits the channel into separate sender and receiver halves.
+    ///
+    /// This consumes the channel and returns the sender and receiver,
+    /// which can then be moved to different threads.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use multi_agent_sync::message::MessageChannel;
+    /// let channel = MessageChannel::<i32>::new(10);
+    /// let (sender, receiver) = channel.split();
+    /// ```
     #[inline]
     pub fn split(self) -> (MessageSender<T>, MessageReceiver<T>) {
         (self.sender, self.receiver)

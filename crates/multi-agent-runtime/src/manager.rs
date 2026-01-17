@@ -27,9 +27,39 @@ use std::{
     time::{Duration, Instant},
 };
 
+/// The runtime manager that orchestrates simulation and GUI threads.
+///
+/// This is the internal implementation used by `AppLauncher`. Most users should
+/// use `AppLauncher::run()` instead of this type directly.
 pub struct MultiAgentRuntimeManager;
 
 impl MultiAgentRuntimeManager {
+    /// Launches the application with the given simulation and GUI implementations.
+    ///
+    /// This method:
+    /// 1. Creates lock-free shared state containers for bidirectional communication
+    /// 2. Sets up message channels for discrete events
+    /// 3. Spawns the simulation thread running at `Simulation::UPDATE_FREQUENCY_HZ`
+    /// 4. Runs the GUI on the main thread at approximately 60 FPS
+    /// 5. Waits for graceful shutdown when the window closes
+    ///
+    /// # Type Parameters
+    ///
+    /// * `Simulation` - Your simulation implementation
+    /// * `Gui` - Your GUI implementation (types must match the simulation's)
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if:
+    /// - Simulation initialization fails in `Simulation::new()`
+    /// - The GUI fails to start
+    /// - A simulation update returns an error
+    /// - The simulation thread panics
+    /// - The simulation thread fails to stop within the timeout (5 seconds)
+    ///
+    /// # Example
+    ///
+    /// See `AppLauncher` documentation for usage examples.
     #[inline]
     pub fn run<Simulation, Gui>() -> Result<()>
     where
@@ -65,7 +95,8 @@ impl MultiAgentRuntimeManager {
         let stop_simulator: Arc<AtomicBool> = Arc::clone(&stop_gui);
 
         let simulation_thread: JoinHandle<Result<()>> = thread::spawn(move || {
-            let frequency: Duration = Duration::from_millis(Simulation::FREQUENCY_IN_HZ);
+            let period: Duration =
+                Duration::from_secs_f64(1.0 / Simulation::UPDATE_FREQUENCY_HZ as f64);
 
             let mut delta: Instant = Instant::now();
             loop {
@@ -81,14 +112,14 @@ impl MultiAgentRuntimeManager {
                     (**gui_data.load()).clone(),
                     sim_receiver.drain(),
                     delta_time,
-                    |message| sim_sender.send(message),
+                    |message| sim_sender.send_lossy(message),
                 )?;
                 simulation_data.store(new_simulation_data.clone());
 
                 let now: Instant = Instant::now();
                 let duration: Duration = now.duration_since(delta);
-                if duration < frequency {
-                    thread::sleep(frequency - duration);
+                if duration < period {
+                    thread::sleep(period - duration);
                 }
             }
 

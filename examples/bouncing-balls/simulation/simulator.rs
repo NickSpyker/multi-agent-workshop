@@ -146,10 +146,7 @@ impl MultiAgentSimulation for BouncingBallsSimulator {
         messages: Vec<Self::MessageFromGui>,
         delta_time: Duration,
         _send_message_to_gui: F,
-    ) -> multi_agent::Result<&Self::SimulationData>
-    where
-        F: Fn(Self::MessageToGui) -> multi_agent::Result<()>,
-    {
+    ) -> multi_agent::Result<&Self::SimulationData> {
         let (width, height): (f32, f32) = (gui_data.width, gui_data.height);
 
         for message in messages {

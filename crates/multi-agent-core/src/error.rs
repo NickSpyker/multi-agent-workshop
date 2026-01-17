@@ -20,13 +20,29 @@ use std::{
     fmt::{self, Debug, Display, Formatter},
 };
 
+/// Errors that can occur in the multi-agent runtime.
+///
+/// This error type covers failures in thread management, GUI initialization,
+/// and message passing between simulation and GUI threads.
+///
+/// The `#[non_exhaustive]` attribute means new error variants may be added
+/// in future versions without breaking existing code.
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Error {
+    /// A thread panicked with the given payload.
     Thread(Box<dyn Any + Send + 'static>),
+
+    /// The simulation thread failed to stop within the timeout period.
     ThreadStopTimeout,
+
+    /// An error occurred during GUI initialization or rendering.
     Gui(String),
+
+    /// Attempted to send a message but the channel is full.
     MessageSenderFull,
+
+    /// Attempted to send a message but the receiving end disconnected.
     MessageSenderDisconnected,
 }
 
