@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-mod shared;
+mod gui;
+mod simulation;
 
-pub mod message;
+use gui::BouncingBallsGui;
+use multi_agent::AppLauncher;
+use simulation::BouncingBallsSimulator;
 
-pub use shared::Shared;
+fn main() -> multi_agent::Result<()> {
+    AppLauncher::run::<BouncingBallsSimulator, BouncingBallsGui>()
+}

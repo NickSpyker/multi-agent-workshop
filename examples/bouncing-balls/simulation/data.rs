@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-mod shared;
-
-pub mod message;
-
-pub use shared::Shared;
+#[derive(Debug, Default, Clone)]
+pub struct BouncingBall {
+    pub x: f32,
+    pub y: f32,
+    pub dx: f32,
+    pub dy: f32,
+    pub radius: f32,
+}

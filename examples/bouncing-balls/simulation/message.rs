@@ -14,8 +14,5 @@
  * limitations under the License.
  */
 
-mod shared;
-
-pub mod message;
-
-pub use shared::Shared;
+#[derive(Debug, Clone)]
+pub enum MessageFromSimulatorToGui {}

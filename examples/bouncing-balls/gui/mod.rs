@@ -15,13 +15,9 @@
  */
 
 mod data;
-mod gui;
 mod message;
-mod simulator;
+mod ui;
 
-use gui::BouncingBallGui;
-use simulator::BouncingBallSimulator;
-
-fn main() -> multi_agent::Result<()> {
-    multi_agent::AppLauncher::run::<BouncingBallSimulator, BouncingBallGui>()
-}
+pub use ui::BouncingBallsGui;
+pub use message::MessageFromGuiToSimulator;
+pub use data::BouncingAreaConfig;

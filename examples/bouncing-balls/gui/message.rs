@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-#[derive(Debug, Default)]
-pub struct BouncingBallSimulationData {
-    pub x: f32,
-    pub y: f32,
-    pub dx: f32,
-    pub dy: f32,
-    pub radius: f32,
-}
-
-#[derive(Debug)]
-pub struct BouncingBallGuiData {
-    pub width: f32,
-    pub height: f32,
-}
-
-impl Default for BouncingBallGuiData {
-    fn default() -> Self {
-        Self {
-            width: 750.0,
-            height: 500.0,
-        }
-    }
+#[derive(Debug, Clone)]
+pub enum MessageFromGuiToSimulator {
+    Pause,
+    Resume,
+    RecalculateArea,
+    Shake,
+    AddBalls(usize),
+    RemoveBalls(usize),
 }

@@ -29,22 +29,30 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix runtime sharing trait">
-      <change afterPath="$PROJECT_DIR$/examples/bouncing-ball/simulator.rs" afterDir="false" />
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add bouncing ball example">
+      <change afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/guard_arc.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/data.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/message.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/multi-agent-workshop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/multi-agent-workshop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Run_Example_Bouncing_Ball.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/multi-agent-gui/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-gui/src/gui.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/examples/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/boids.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-ball/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/fluid.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-ball/data.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/game_of_life.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-ball/gui.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/physarum.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-ball/message.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi-agent/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi-agent/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/app.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-ball/data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/data.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-ball/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-ball/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-ball/message.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/message.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-ball/simulator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/multi-agent/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,24 +71,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NickSpyker"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NickSpyker&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:NickSpyker/multi-agent-systems.git",
-    "accountId": "5efd3125-5b5c-46dc-a991-daa31dc62863"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:NickSpyker/multi-agent-systems.git&quot;,
+    &quot;accountId&quot;: &quot;5efd3125-5b5c-46dc-a991-daa31dc62863&quot;
   }
-}]]></component>
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="7wl9xEIf" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="38KppKHXf75Awp5Q68TQsPLXgcS" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -93,6 +101,7 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Cargo.Run Example Bouncing Ball.executor": "Run",
+    "Cargo.Run Example Bouncing Balls.executor": "Run",
     "Cargo.Test multi-agent-workshop.executor": "Run",
     "Cargo.Test.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -119,10 +128,16 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Cargo.Run Example Bouncing Ball">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\gui" />
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\simulation" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Cargo.Run Example Bouncing Balls">
     <list>
       <item itemvalue="Cargo.Test" />
-      <item itemvalue="Cargo.Run Example Bouncing Ball" />
+      <item itemvalue="Cargo.Run Example Bouncing Balls" />
     </list>
   </component>
   <component name="RustProjectSettings">
@@ -136,7 +151,8 @@
       <option name="presentableId" value="Default" />
       <updated>1722191757172</updated>
       <workItem from="1722191758257" duration="44000" />
-      <workItem from="1768558300030" duration="25926000" />
+      <workItem from="1768558300030" duration="27223000" />
+      <workItem from="1768642397053" duration="4769000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -162,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768579677966</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add bouncing ball example">
+      <option name="closed" value="true" />
+      <created>1768587332799</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1768587332799</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +196,7 @@
     <MESSAGE value="Rename multi-agent-system-* to multi-agent-*" />
     <MESSAGE value="Refactor core traits and add runtime manager" />
     <MESSAGE value="Fix runtime sharing trait" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix runtime sharing trait" />
+    <MESSAGE value="Add bouncing ball example" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add bouncing ball example" />
   </component>
 </project>

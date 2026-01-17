@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-mod shared;
+#[derive(Debug, Clone)]
+pub struct BouncingAreaConfig {
+    pub width: f32,
+    pub height: f32,
+    pub ball_count: usize,
+}
 
-pub mod message;
-
-pub use shared::Shared;
+impl Default for BouncingAreaConfig {
+    fn default() -> Self {
+        Self {
+            width: 750.0,
+            height: 500.0,
+            ball_count: 5,
+        }
+    }
+}

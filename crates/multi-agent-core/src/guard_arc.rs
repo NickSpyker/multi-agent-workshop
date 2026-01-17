@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-mod shared;
+use arc_swap::Guard;
+use std::sync::Arc;
 
-pub mod message;
-
-pub use shared::Shared;
+pub type GuardArc<T> = Guard<Arc<T>>;

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-#[derive(Debug, Clone)]
-pub enum MessageFromSimulatorToGui {}
+mod simulator;
 
-#[derive(Debug, Clone)]
-pub enum MessageFromGuiToSimulator {
-    Pause,
-    Resume,
-    RecalculateArea,
-}
+mod data;
+mod message;
+
+pub use data::BouncingBall;
+pub use message::MessageFromSimulatorToGui;
+pub use simulator::BouncingBallsSimulator;

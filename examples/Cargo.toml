@@ -29,10 +29,11 @@ repository.workspace = true
 
 [dependencies]
 multi-agent = { path = "../multi-agent", features = ["default"] }
+rand = { version = "0.9.2", features = ["default"] }
 
 [lints]
 workspace = true
 
 [[example]]
-name = "bouncing-ball"
-path = "bouncing-ball/main.rs"
+name = "bouncing-balls"
+path = "bouncing-balls/main.rs"

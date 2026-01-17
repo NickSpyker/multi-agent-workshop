@@ -15,11 +15,13 @@
  */
 
 mod error;
+mod guard_arc;
 mod gui;
 mod result;
 mod simulation;
 
 pub use error::Error;
+pub use guard_arc::GuardArc;
 pub use gui::MultiAgentGui;
 pub use result::Result;
 pub use simulation::MultiAgentSimulation;

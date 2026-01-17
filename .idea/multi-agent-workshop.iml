@@ -10,8 +10,8 @@
       <sourceFolder url="file://$MODULE_DIR$/crates/simulation-gui/fluid-gui/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/crates/simulation-gui/game-of-life-gui/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/crates/simulation-gui/physarum-gui/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/examples/bouncing-ball" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/multi-agent/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/examples/bouncing-balls" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

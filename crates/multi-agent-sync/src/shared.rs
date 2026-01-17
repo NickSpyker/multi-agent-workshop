@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-use arc_swap::{ArcSwap, Guard};
+use arc_swap::ArcSwap;
+use multi_agent_core::GuardArc;
 use std::sync::Arc;
-
-pub type GuardArc<T> = Guard<Arc<T>>;
 
 #[derive(Debug, Clone)]
 pub struct Shared<T: Clone> {
@@ -57,8 +56,8 @@ mod tests {
     use super::{GuardArc, Shared};
     use std::{
         sync::{
-            Arc,
             atomic::{AtomicBool, Ordering},
+            Arc,
         },
         thread::{self, JoinHandle},
         time::{Duration, Instant},

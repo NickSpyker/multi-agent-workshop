@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+use crate::GuardArc;
 use eframe::{
     egui::{Context, Ui},
     Frame,
@@ -28,8 +29,8 @@ pub trait MultiAgentGui: Debug + Default {
     const BACKGROUND_RGBA_COLOR: [u8; 4] = [12, 12, 12, 180];
     const SIDEBAR_DEFAULT_WIDTH_IN_PIXELS: f32 = 250.0;
 
-    type GuiData: Default;
-    type SimulationData: Default;
+    type GuiData: Default + Clone + Sync + Send;
+    type SimulationData: Default + Clone + Sync + Send;
 
     type MessageFromSimulation: Clone;
     type MessageToSimulation: Clone;
@@ -38,15 +39,18 @@ pub trait MultiAgentGui: Debug + Default {
 
     fn sidebar<F>(
         &mut self,
+        simulation_data: &GuardArc<Self::SimulationData>,
         ctx: &Context,
         frame: &mut Frame,
         ui: &mut Ui,
         send_message_to_simulation: F,
-    ) where
+    ) -> Option<Self::GuiData>
+    where
         F: Fn(Self::MessageToSimulation);
 
     fn content<F>(
         &mut self,
+        simulation_data: &GuardArc<Self::SimulationData>,
         ctx: &Context,
         frame: &mut Frame,
         ui: &mut Ui,

@@ -18,8 +18,11 @@ use eframe::{
     egui::{CentralPanel, Color32, Context, SidePanel, ViewportBuilder, Visuals}, App, Frame,
     NativeOptions,
 };
-use multi_agent_core::{Error, MultiAgentGui, Result};
-use multi_agent_sync::message::{MessageReceiver, MessageSender};
+use multi_agent_core::{Error, GuardArc, MultiAgentGui, Result};
+use multi_agent_sync::{
+    message::{MessageReceiver, MessageSender},
+    Shared,
+};
 
 pub struct AppGui<Interface>
 where
@@ -28,6 +31,8 @@ where
     inner: Interface,
     sender: MessageSender<Interface::MessageToSimulation>,
     receiver: MessageReceiver<Interface::MessageFromSimulation>,
+    gui_data: Shared<Interface::GuiData>,
+    simulation_data: Shared<Interface::SimulationData>,
 }
 
 impl<Interface> AppGui<Interface>
@@ -38,11 +43,15 @@ where
     pub fn new(
         sender: MessageSender<Interface::MessageToSimulation>,
         receiver: MessageReceiver<Interface::MessageFromSimulation>,
+        gui_data: Shared<Interface::GuiData>,
+        simulation_data: Shared<Interface::SimulationData>,
     ) -> Self {
         Self {
             inner: Interface::default(),
             sender,
             receiver,
+            gui_data,
+            simulation_data,
         }
     }
 
@@ -73,17 +82,31 @@ where
         self.inner
             .received_messages_from_simulation(self.receiver.drain());
 
+        let simulation_data: GuardArc<Interface::SimulationData> = self.simulation_data.load();
+
+        let mut gui_data: Option<Interface::GuiData> = None;
         SidePanel::left("multi-agent-gui::Gui.update[sidebar]")
             .default_width(Interface::SIDEBAR_DEFAULT_WIDTH_IN_PIXELS)
             .show(ctx, |ui| {
-                self.inner
-                    .sidebar(ctx, frame, ui, |message| self.sender.send_lossy(message))
+                gui_data = self
+                    .inner
+                    .sidebar(&simulation_data, ctx, frame, ui, |message| {
+                        self.sender.send_lossy(message)
+                    });
             });
 
         CentralPanel::default().show(ctx, |ui| {
             self.inner
-                .content(ctx, frame, ui, |message| self.sender.send_lossy(message))
+                .content(&simulation_data, ctx, frame, ui, |message| {
+                    self.sender.send_lossy(message)
+                })
         });
+
+        if let Some(gui_data) = gui_data {
+            self.gui_data.store(gui_data);
+        }
+
+        ctx.request_repaint();
     }
 
     #[inline]
