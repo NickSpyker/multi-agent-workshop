@@ -149,10 +149,11 @@ impl MultiAgentGui for BouncingBallsGui {
             StrokeKind::Outside,
         );
         for ball in simulation_data.iter() {
+            let [r, g, b]: [u8; 3] = ball.color;
             painter.circle_filled(
                 Pos2::new(ball.x + min.x, ball.y + min.y),
                 ball.radius,
-                Color32::RED,
+                Color32::from_rgba_unmultiplied(r, g, b, 255),
             );
         }
     }

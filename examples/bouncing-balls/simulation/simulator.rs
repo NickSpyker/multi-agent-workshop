@@ -28,6 +28,8 @@ pub struct BouncingBallsSimulator {
 
 impl BouncingBallsSimulator {
     const DELTA_TIME_SCALING: f32 = 50.0;
+    const GRAVITY: f32 = 9.81;
+    const BOUNCE_DAMPING: f32 = 0.8;
 
     fn add_balls(&mut self, count: usize, max_x: f32, max_y: f32) {
         let mut rng: ThreadRng = rand::rng();
@@ -41,6 +43,11 @@ impl BouncingBallsSimulator {
                 dx: rng.random_range(-5.0..5.0),
                 dy: rng.random_range(-5.0..5.0),
                 radius,
+                color: [
+                    rng.random_range(0..255),
+                    rng.random_range(0..255),
+                    rng.random_range(0..255),
+                ],
             });
         }
     }
@@ -53,22 +60,17 @@ impl BouncingBallsSimulator {
         }
     }
 
-    fn random_velocities(&mut self) {
+    fn shake(&mut self) {
         let mut rng: ThreadRng = rand::rng();
         for ball in self.balls.iter_mut() {
             ball.dx = rng.random_range(-5.0..5.0);
-            ball.dy = rng.random_range(-5.0..5.0);
+            ball.dy = rng.random_range(-10.0..-5.0);
         }
     }
 
-    fn wrap_balls_into_area(&mut self, width: f32, height: f32) {
+    fn apply_gravity(&mut self, delta_time: f32) {
         for ball in self.balls.iter_mut() {
-            if ball.x + ball.radius > width {
-                ball.x = ball.radius;
-            }
-            if ball.y + ball.radius > height {
-                ball.y = ball.radius;
-            }
+            ball.dy += Self::GRAVITY * delta_time;
         }
     }
 
@@ -87,6 +89,7 @@ impl BouncingBallsSimulator {
             dx,
             dy,
             radius,
+            color,
         } in self.balls.iter_mut()
         {
             let is_in_area_x: bool = *radius <= *x && *x <= width - *radius;
@@ -98,18 +101,21 @@ impl BouncingBallsSimulator {
 
             if *x - *radius < 0.0 {
                 *x = *radius;
-                *dx = -*dx;
+                *dx = -*dx * Self::BOUNCE_DAMPING;
             } else if *x + *radius > width {
                 *x = width - *radius;
-                *dx = -*dx;
+                *dx = -*dx * Self::BOUNCE_DAMPING;
             }
 
             if *y - *radius < 0.0 {
                 *y = *radius;
-                *dy = -*dy;
+                *dy = -*dy * Self::BOUNCE_DAMPING;
             } else if *y + *radius > height {
                 *y = height - *radius;
-                *dy = -*dy;
+                *dy = -*dy * Self::BOUNCE_DAMPING;
+                if dy.abs() < 0.5 {
+                    *dy = 0.0;
+                }
             }
         }
     }
@@ -147,17 +153,17 @@ impl MultiAgentSimulation for BouncingBallsSimulator {
             match message {
                 MessageFromGuiToSimulator::Pause => self.paused = true,
                 MessageFromGuiToSimulator::Resume => self.paused = false,
-                MessageFromGuiToSimulator::RecalculateArea => {
-                    self.wrap_balls_into_area(width, height);
-                }
-                MessageFromGuiToSimulator::Shake => self.random_velocities(),
+                MessageFromGuiToSimulator::RecalculateArea => self.bounce_balls(width, height),
+                MessageFromGuiToSimulator::Shake => self.shake(),
                 MessageFromGuiToSimulator::AddBalls(count) => self.add_balls(count, width, height),
                 MessageFromGuiToSimulator::RemoveBalls(count) => self.remove_balls(count),
             }
         }
 
         if !self.paused {
-            self.move_balls(delta_time.as_secs_f32());
+            let dt: f32 = delta_time.as_secs_f32();
+            self.apply_gravity(dt);
+            self.move_balls(dt);
             self.bounce_balls(width, height);
         }
 

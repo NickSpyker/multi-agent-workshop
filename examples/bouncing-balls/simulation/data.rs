@@ -21,4 +21,5 @@ pub struct BouncingBall {
     pub dx: f32,
     pub dy: f32,
     pub radius: f32,
+    pub color: [u8; 3],
 }
