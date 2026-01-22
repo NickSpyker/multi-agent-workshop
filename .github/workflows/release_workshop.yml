@@ -2,16 +2,14 @@ name: Release Workshop
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - 'release'
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +18,46 @@ jobs:
     - name: Build
       run: cargo build --workspace --verbose
 
-    - name: Run tests
+    - name: Run Tests
       run: cargo test --workspace --verbose
+
+  create-release:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Create Workshop Archive
+      run: |
+        # Copy workshop folder to multi-agent-workshop
+        cp -r workshop multi-agent-workshop
+
+        # Create ZIP archive
+        zip -r multi-agent-workshop.zip multi-agent-workshop
+
+        # Create tar.gz archive for Linux/Mac users
+        tar -czf multi-agent-workshop.tar.gz multi-agent-workshop
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          multi-agent-workshop.zip
+          multi-agent-workshop.tar.gz
+        body: |
+          # Multi-Agent Workshop
+
+          Download the workshop to get started:
+          - `multi-agent-workshop.zip` for Windows
+          - `multi-agent-workshop.tar.gz` for Linux/Mac
+
+          ## Installation
+
+          1. Download the archive for your operating system
+          2. Extract the archive
+          3. Follow the instructions in the workshop README
+        draft: false
+        prerelease: false
