@@ -53,7 +53,7 @@ arc-swap = { version = "1.8.0", features = [] }
 # Graphical User Interface
 eframe = { version = "0.33.3", features = ["default"] }
 # Error Handling
-thiserror = { version = "*", features = [] }
+thiserror = { version = "2.0.18", features = [] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
@@ -63,6 +63,7 @@ all = { level = "deny", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 nursery = { level = "warn", priority = -1 }
 cargo = { level = "warn", priority = -1 }
+multiple_crate_versions = "allow"
 unwrap_used = "deny"
 expect_used = "deny"
 panic = "deny"

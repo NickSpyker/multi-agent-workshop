@@ -29,24 +29,11 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Setup workshop packages and README">
-      <change afterPath="$PROJECT_DIR$/workshop/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/.idea/workshop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/gui/app.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/gui/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/gui/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/gui/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/simulation/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/simulation/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/simulation/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/boids/src/simulation/simulator.rs" afterDir="false" />
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix multiple versions for dependency">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workshop/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/boids/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/boids/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/boids/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/boids/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/boids/src/gui/message.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/boids/src/gui/message.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +97,7 @@
     &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Spijkerman/Repositories/multi-agent-workshop/workshop/boids&quot;,
@@ -165,6 +152,7 @@
       <workItem from="1769090413707" duration="3825000" />
       <workItem from="1769096700163" duration="28000" />
       <workItem from="1769099590644" duration="51000" />
+      <workItem from="1769100125933" duration="64000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
