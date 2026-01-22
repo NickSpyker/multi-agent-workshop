@@ -46,21 +46,29 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: latest
-        name: Latest Workshop Release
+        name: Workshop
         files: |
           multi-agent-workshop.zip
           multi-agent-workshop.tar.gz
         body: |
-          # Multi-Agent Workshop
+          # 🦀 **Rust Workshop: Multi-Agent Systems (Biological and Physical Simulations)**
 
-          Download the workshop to get started:
-          - `multi-agent-workshop.zip` for Windows
-          - `multi-agent-workshop.tar.gz` for Linux/Mac
+          **How can simple rules give rise to complex collective behaviors?**
 
-          ## Installation
+          This workshop provides an introduction to multi-agent systems (Agent-Based Models).
+          The goal is to understand and model the emergence of natural, physical, or biological phenomena using this paradigm.
 
-          1. Download the archive for your operating system
-          2. Extract the archive
-          3. Follow the instructions in the workshop README
+          ## 🚀 Getting Started
+
+          ### 🛠 Download the Workshop
+
+          - `multi-agent-workshop.zip` for Windows.
+          - `multi-agent-workshop.tar.gz` for Linux/Mac.
+
+          ### 📋 Installation
+
+          1. Download the archive for your operating system.
+          2. Extract the archive.
+          3. Follow the instructions in the workshop README.
         draft: false
         prerelease: false

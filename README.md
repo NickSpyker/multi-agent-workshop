@@ -2,6 +2,39 @@
 
 <p align="center">A Rust workshop with a ready-made GUI for building and visualizing multi-agent simulations.</p>
 
+<table>
+  <tr>
+    <th colspan="3">
+      <h2>🚀 Getting Started</h2>
+    </th>
+  </tr>
+  <tr>
+    <td colspan="3">Download the Workshop</td>
+  </tr>
+  <tr>
+    <td>Windows</td>
+    <td>Linux</td>
+    <td>Mac</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/NickSpyker/multi-agent-workshop/releases/download/latest/multi-agent-workshop.zip">
+        multi-agent-workshop.zip
+      </a>
+    </td>
+    <td colspan="2">
+      <a href="https://github.com/NickSpyker/multi-agent-workshop/releases/download/latest/multi-agent-workshop.tar.gz">
+        multi-agent-workshop.tar.gz
+      </a>
+    </td>
+  </tr>
+  <tr>
+    1. Download the archive for your operating system.
+    2. Extract the archive.
+    3. Follow the instructions in the workshop README.
+  </tr>
+</table>
+
 ## 🦀 **Rust Workshop: Multi-Agent Systems (Biological and Physical Simulations)**
 
 **How can simple rules give rise to complex collective behaviors?**
