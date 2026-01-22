@@ -9,29 +9,33 @@
     </th>
   </tr>
   <tr>
-    <td colspan="3">Download the Workshop</td>
+    <td colspan="3" align="center">Download the Workshop</td>
   </tr>
   <tr>
-    <td>Windows</td>
-    <td>Linux</td>
-    <td>Mac</td>
+    <td align="center">Windows</td>
+    <td align="center">Linux</td>
+    <td align="center">Mac</td>
   </tr>
   <tr>
-    <td>
+    <td align="center">
       <a href="https://github.com/NickSpyker/multi-agent-workshop/releases/download/latest/multi-agent-workshop.zip">
         multi-agent-workshop.zip
       </a>
     </td>
-    <td colspan="2">
+    <td colspan="2" align="center">
       <a href="https://github.com/NickSpyker/multi-agent-workshop/releases/download/latest/multi-agent-workshop.tar.gz">
         multi-agent-workshop.tar.gz
       </a>
     </td>
   </tr>
   <tr>
-    1. Download the archive for your operating system.
-    2. Extract the archive.
-    3. Follow the instructions in the workshop README.
+    <td colspan="3">
+      1. Download the archive for your operating system.
+      <br>
+      2. Extract the archive.
+      <br>
+      3. Follow the instructions in the workshop README.
+    </td>
   </tr>
 </table>
 
