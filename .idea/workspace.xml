@@ -29,14 +29,19 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix README">
-      <change afterPath="$PROJECT_DIR$/examples/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/bouncing-balls/img/bouncing-balls-example.gif" afterDir="false" />
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add example readme">
+      <change afterPath="$PROJECT_DIR$/workshop/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/workshop/boids/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/workshop/fluid/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/workshop/physarum/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/gui/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/data.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/Cargo.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/boids/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/boids/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/physarum/Cargo.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,38 +91,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Cargo.Run Example Bouncing Ball.executor&quot;: &quot;Run&quot;,
-    &quot;Cargo.Run Example Bouncing Balls.executor&quot;: &quot;Run&quot;,
-    &quot;Cargo.Test multi-agent-workshop.executor&quot;: &quot;Run&quot;,
-    &quot;Cargo.Test.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Spijkerman/Repositories/multi-agent-workshop&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
-    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Cargo.Run Example Bouncing Ball.executor": "Run",
+    "Cargo.Run Example Bouncing Balls.executor": "Run",
+    "Cargo.Test multi-agent-workshop.executor": "Run",
+    "Cargo.Test.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Spijkerman/Repositories/multi-agent-workshop/workshop/boids",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\workshop\boids" />
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\workshop\fluid" />
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\workshop\game-of-life" />
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\workshop\physarum" />
+      <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\workshop" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\img" />
       <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\gui" />
@@ -250,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769093293394</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add example readme">
+      <option name="closed" value="true" />
+      <created>1769095396904</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1769095396904</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,6 +289,7 @@
     <MESSAGE value="Add workshop description" />
     <MESSAGE value="Update README and CI/CD" />
     <MESSAGE value="Fix README" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix README" />
+    <MESSAGE value="Add example readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add example readme" />
   </component>
 </project>

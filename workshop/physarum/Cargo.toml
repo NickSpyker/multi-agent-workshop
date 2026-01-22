@@ -4,3 +4,6 @@ edition = "2024"
 
 [dependencies]
 multi-agent.workspace = true
+
+[lints]
+workspace = true
