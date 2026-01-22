@@ -2,8 +2,9 @@ name: Release Workshop
 
 on:
   push:
-    tags:
-      - 'release'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -44,6 +45,8 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: latest
+        name: Latest Workshop Release
         files: |
           multi-agent-workshop.zip
           multi-agent-workshop.tar.gz
