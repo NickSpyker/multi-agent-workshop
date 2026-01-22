@@ -4,6 +4,9 @@ members = ["boids", "fluid", "game-of-life", "physarum"]
 
 [workspace.dependencies]
 multi-agent = { git = "https://github.com/NickSpyker/multi-agent-workshop" }
+# Graphical User Interface Dependencies
+eframe = "0.33.3"
+egui = "0.33.3"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
