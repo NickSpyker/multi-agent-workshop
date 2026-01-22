@@ -1077,6 +1077,8 @@ dependencies = [
 name = "fluid"
 version = "0.0.0"
 dependencies = [
+ "eframe",
+ "egui",
  "multi-agent",
 ]
 
@@ -1188,6 +1190,8 @@ dependencies = [
 name = "game-of-life"
 version = "0.0.0"
 dependencies = [
+ "eframe",
+ "egui",
  "multi-agent",
 ]
 
@@ -2239,6 +2243,8 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 name = "physarum"
 version = "0.0.0"
 dependencies = [
+ "eframe",
+ "egui",
  "multi-agent",
 ]
 
