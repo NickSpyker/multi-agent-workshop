@@ -52,6 +52,8 @@ crossbeam-channel = { version = "0.5.15", features = ["default"] }
 arc-swap = { version = "1.8.0", features = [] }
 # Graphical User Interface
 eframe = { version = "0.33.3", features = ["default"] }
+# Error Handling
+thiserror = { version = "2.0.18", features = [] }
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

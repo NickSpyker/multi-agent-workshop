@@ -29,9 +29,23 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix unused variable warnings">
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Fix README">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/error.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/error.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/gui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-core/src/simulation.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-runtime/src/manager.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/channel.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/receiver.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/receiver.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/sender.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/message/sender.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/multi-agent-sync/src/shared.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/gui/ui.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/bouncing-balls/simulation/simulator.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi-agent/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/multi-agent/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +61,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -55,12 +74,12 @@
     &quot;assignee&quot;: &quot;NickSpyker&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:NickSpyker/multi-agent-systems.git&quot;,
-    &quot;accountId&quot;: &quot;5efd3125-5b5c-46dc-a991-daa31dc62863&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:NickSpyker/multi-agent-workshop.git",
+    "accountId": "5efd3125-5b5c-46dc-a991-daa31dc62863"
   }
-}</component>
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="7wl9xEIf" />
   </component>
@@ -69,6 +88,7 @@
 }</component>
   <component name="ProjectId" id="38KppKHXf75Awp5Q68TQsPLXgcS" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -89,7 +109,7 @@
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "C:/Users/Spijkerman/Repositories/multi-agent-workshop",
@@ -131,6 +151,8 @@
       <workItem from="1722191758257" duration="44000" />
       <workItem from="1768558300030" duration="27223000" />
       <workItem from="1768642397053" duration="6441000" />
+      <workItem from="1769089981400" duration="416000" />
+      <workItem from="1769090413707" duration="3825000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -196,7 +218,47 @@
       <option name="project" value="LOCAL" />
       <updated>1768648692614</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add workflow to release workshop as downloadable archive">
+      <option name="closed" value="true" />
+      <created>1769090577344</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1769090577344</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update workflow to automatically release workshop on push">
+      <option name="closed" value="true" />
+      <created>1769090766519</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1769090766519</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add workshop description">
+      <option name="closed" value="true" />
+      <created>1769091168091</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1769091168091</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update README and CI/CD">
+      <option name="closed" value="true" />
+      <created>1769093097894</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1769093097894</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix README">
+      <option name="closed" value="true" />
+      <created>1769093293394</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1769093293394</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,6 +272,11 @@
     <MESSAGE value="Finish bouncing ball example" />
     <MESSAGE value="Add gravity to bouncing ball example" />
     <MESSAGE value="Fix unused variable warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix unused variable warnings" />
+    <MESSAGE value="Add workflow to release workshop as downloadable archive" />
+    <MESSAGE value="Update workflow to automatically release workshop on push" />
+    <MESSAGE value="Add workshop description" />
+    <MESSAGE value="Update README and CI/CD" />
+    <MESSAGE value="Fix README" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix README" />
   </component>
 </project>

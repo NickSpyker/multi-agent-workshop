@@ -16,6 +16,7 @@
 
 mod app;
 
+pub use multi_agent_gui as gui;
+
 pub use app::AppLauncher;
 pub use multi_agent_core::{Error, GuardArc, MultiAgentGui, MultiAgentSimulation, Result};
-pub use multi_agent_gui::{eframe, egui};

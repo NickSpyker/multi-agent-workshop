@@ -32,8 +32,10 @@ impl<T> MessageSender<T> {
     #[inline]
     pub fn send(&self, message: T) -> Result<()> {
         self.inner.try_send(message).map_err(|err| match err {
-            TrySendError::Full(_) => Error::MessageSenderFull,
-            TrySendError::Disconnected(_) => Error::MessageSenderDisconnected,
+            TrySendError::Full(_) => Error::MessageChannelFull {
+                capacity: self.inner.capacity().unwrap_or(0),
+            },
+            TrySendError::Disconnected(_) => Error::MessageChannelDisconnected,
         })
     }
 

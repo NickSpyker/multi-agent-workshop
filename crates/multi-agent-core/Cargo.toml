@@ -33,6 +33,8 @@ crossbeam-channel.workspace = true
 arc-swap.workspace = true
 # Graphical User Interface
 eframe.workspace = true
+# Error Handling
+thiserror.workspace = true
 
 [features]
 default = []

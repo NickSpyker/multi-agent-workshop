@@ -17,11 +17,13 @@
 use super::{BouncingAreaConfig, MessageFromGuiToSimulator};
 use crate::simulation::{BouncingBall, MessageFromSimulatorToGui};
 use multi_agent::{
-    eframe::Frame, egui::{
-        Color32, Context, Painter, Pos2, Rect, Response, RichText, Slider, Stroke, StrokeKind, Ui,
-        Vec2,
-    },
-    GuardArc,
+    gui::{
+        eframe::Frame,
+        egui::{
+            Color32, Context, Painter, Pos2, Rect, Response, RichText, Slider, Stroke, StrokeKind,
+            Ui, Vec2,
+        },
+    }, GuardArc,
     MultiAgentGui,
 };
 

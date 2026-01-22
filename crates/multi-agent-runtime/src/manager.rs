@@ -23,13 +23,66 @@ use std::{
         atomic::{AtomicBool, Ordering},
         Arc,
     },
-    thread::{self, JoinHandle},
+    thread,
     time::{Duration, Instant},
 };
 
+/// Runtime manager that orchestrates the multi-agent simulation and GUI.
+///
+/// This struct manages the lifecycle of both the simulation and GUI threads,
+/// including thread spawning, communication setup, and graceful shutdown.
+///
+/// # Architecture
+///
+/// The manager creates two threads:
+/// - **Main thread**: Runs the GUI using egui/eframe
+/// - **Simulation thread**: Runs the simulation at the specified frequency
+///
+/// Communication between threads uses:
+/// - **Shared state**: Lock-free RCU for `SimulationData` and `GuiData`
+/// - **Message channels**: Bounded channels for bidirectional messaging
+///
+/// # Example
+///
+/// ```rust,ignore
+/// use multi_agent::AppLauncher;
+///
+/// fn main() -> multi_agent::Result<()> {
+///     AppLauncher::run::<MySimulation, MyGui>()
+/// }
+/// ```
 pub struct MultiAgentRuntimeManager;
 
 impl MultiAgentRuntimeManager {
+    /// Run the multi-agent application with the given simulation and GUI implementations.
+    ///
+    /// This method:
+    /// 1. Creates shared state for simulation and GUI data
+    /// 2. Sets up bidirectional message channels (capacity: 100)
+    /// 3. Spawns the simulation thread
+    /// 4. Runs the GUI on the main thread
+    /// 5. Performs graceful shutdown when the GUI closes
+    ///
+    /// # Type Parameters
+    /// * `Simulation` - Your simulation implementation
+    /// * `Gui` - Your GUI implementation
+    ///
+    /// The types must be compatible (same data and message types).
+    ///
+    /// # Returns
+    /// - `Ok(())` if the application runs and closes successfully
+    /// - `Err(Error::SimulationPanic)` if the simulation thread panics
+    /// - `Err(Error::ShutdownTimeout)` if the simulation thread doesn't stop within 5 seconds
+    /// - `Err(Error::Gui)` if the GUI framework returns an error
+    ///
+    /// # Example
+    /// ```rust,ignore
+    /// use multi_agent::AppLauncher;
+    ///
+    /// fn main() -> multi_agent::Result<()> {
+    ///     AppLauncher::run::<MySimulation, MyGui>()
+    /// }
+    /// ```
     #[inline]
     pub fn run<Simulation, Gui>() -> Result<()>
     where
@@ -42,14 +95,11 @@ impl MultiAgentRuntimeManager {
             >,
         <Simulation as MultiAgentSimulation>::SimulationData: Send,
     {
-        let simulation_data: Shared<Simulation::SimulationData> =
-            Shared::new(Simulation::SimulationData::default());
-        let gui_data: Shared<Gui::GuiData> = Shared::new(Gui::GuiData::default());
+        let simulation_data = Shared::new(Simulation::SimulationData::default());
+        let gui_data = Shared::new(Gui::GuiData::default());
 
-        let channel_sim_to_gui: MessageChannel<Simulation::MessageToGui> = MessageChannel::new(10);
-        let channel_gui_to_sim: MessageChannel<Gui::MessageToSimulation> = MessageChannel::new(10);
-        let (sim_sender, gui_receiver) = channel_sim_to_gui.split();
-        let (gui_sender, sim_receiver) = channel_gui_to_sim.split();
+        let (sim_sender, gui_receiver) = MessageChannel::new(100).split();
+        let (gui_sender, sim_receiver) = MessageChannel::new(100).split();
 
         let gui: AppGui<Gui> = AppGui::new(
             gui_sender,
@@ -58,35 +108,36 @@ impl MultiAgentRuntimeManager {
             simulation_data.clone(),
         );
 
-        let initial_gui_data_input: Gui::GuiData = Gui::GuiData::default();
-        let mut simulation: Simulation = Simulation::new(initial_gui_data_input)?;
+        let mut simulation = Simulation::new(Gui::GuiData::default())?;
 
-        let stop_gui: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
-        let stop_simulator: Arc<AtomicBool> = Arc::clone(&stop_gui);
+        let stop_gui = Arc::new(AtomicBool::new(false));
+        let stop_simulator = Arc::clone(&stop_gui);
 
-        let simulation_thread: JoinHandle<Result<()>> = thread::spawn(move || {
-            let frequency: Duration = Duration::from_millis(Simulation::FREQUENCY_IN_HZ);
+        let simulation_thread = thread::spawn(move || {
+            let frequency = Duration::from_millis(1000 / Simulation::FREQUENCY_IN_HZ);
 
-            let mut delta: Instant = Instant::now();
+            let mut delta = Instant::now();
             loop {
                 if stop_simulator.load(Ordering::Relaxed) {
                     break;
                 }
 
-                let now: Instant = Instant::now();
-                let delta_time: Duration = now.duration_since(delta);
+                let now = Instant::now();
+                let delta_time = now.duration_since(delta);
                 delta = now;
 
-                let new_simulation_data: &Simulation::SimulationData = simulation.update(
+                let new_simulation_data = simulation.update(
                     (**gui_data.load()).clone(),
                     sim_receiver.drain(),
                     delta_time,
-                    |message| sim_sender.send(message),
+                    |message| {
+                        let _ = sim_sender.send(message);
+                    },
                 )?;
                 simulation_data.store(new_simulation_data.clone());
 
-                let now: Instant = Instant::now();
-                let duration: Duration = now.duration_since(delta);
+                let now = Instant::now();
+                let duration = now.duration_since(delta);
                 if duration < frequency {
                     thread::sleep(frequency - duration);
                 }
@@ -98,16 +149,39 @@ impl MultiAgentRuntimeManager {
         gui.run()?;
         stop_gui.store(true, Ordering::Relaxed);
 
-        let timeout: Duration = Duration::from_secs(5);
-        let start: Instant = Instant::now();
+        let timeout = Duration::from_secs(5);
+        let start = Instant::now();
         loop {
             if simulation_thread.is_finished() {
-                return simulation_thread.join().map_err(Error::Thread)?;
+                return simulation_thread.join().map_err(|e| {
+                    Error::SimulationPanic(format!("{:?}", e))
+                })?;
             }
             if start.elapsed() >= timeout {
-                return Err(Error::ThreadStopTimeout);
+                return Err(Error::ShutdownTimeout { timeout });
             }
             thread::sleep(Duration::from_millis(10));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_frequency_calculation() {
+        // Test that FREQUENCY_IN_HZ correctly translates to duration
+        let freq_30hz: u64 = 30;
+        let expected_duration_30hz: Duration = Duration::from_millis(1000 / freq_30hz);
+        assert_eq!(expected_duration_30hz, Duration::from_millis(33));
+
+        let freq_60hz: u64 = 60;
+        let expected_duration_60hz: Duration = Duration::from_millis(1000 / freq_60hz);
+        assert_eq!(expected_duration_60hz, Duration::from_millis(16));
+
+        let freq_10hz: u64 = 10;
+        let expected_duration_10hz: Duration = Duration::from_millis(1000 / freq_10hz);
+        assert_eq!(expected_duration_10hz, Duration::from_millis(100));
     }
 }

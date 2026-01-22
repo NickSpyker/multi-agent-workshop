@@ -14,45 +14,36 @@
  * limitations under the License.
  */
 
-use std::{
-    any::Any,
-    error,
-    fmt::{self, Debug, Display, Formatter},
-};
+use std::time::Duration;
+use thiserror::Error as ThisError;
 
-#[derive(Debug)]
+/// Errors that can occur in the multi-agent framework.
+#[derive(Debug, ThisError)]
 #[non_exhaustive]
 pub enum Error {
-    Thread(Box<dyn Any + Send + 'static>),
-    ThreadStopTimeout,
+    /// Simulation thread panicked with the given error message.
+    #[error("Simulation thread panicked: {0}")]
+    SimulationPanic(String),
+
+    /// Simulation thread failed to stop within the specified timeout period.
+    #[error("Simulation thread failed to stop within {timeout:?}")]
+    ShutdownTimeout {
+        /// The timeout duration that was exceeded.
+        timeout: Duration,
+    },
+
+    /// GUI error occurred with the given error message.
+    #[error("GUI error: {0}")]
     Gui(String),
-    MessageSenderFull,
-    MessageSenderDisconnected,
-}
 
-impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Thread(err) => write!(f, "{err:?}"),
-            Self::ThreadStopTimeout => write!(
-                f,
-                "thread failed to stop within the timeout period and will be abandoned"
-            ),
-            Self::Gui(err) => write!(f, "{err}"),
-            Self::MessageSenderFull => write!(f, "sending on a full channel"),
-            Self::MessageSenderDisconnected => write!(f, "sending on a disconnected channel"),
-        }
-    }
-}
+    /// Message channel is full and cannot accept more messages.
+    #[error("Message channel full (capacity: {capacity})")]
+    MessageChannelFull {
+        /// The capacity of the channel.
+        capacity: usize,
+    },
 
-impl error::Error for Error {
-    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
-        match self {
-            Self::Thread(_) => None,
-            Self::ThreadStopTimeout => None,
-            Self::Gui(_) => None,
-            Self::MessageSenderFull => None,
-            Self::MessageSenderDisconnected => None,
-        }
-    }
+    /// Message channel is disconnected and cannot send messages.
+    #[error("Message channel disconnected")]
+    MessageChannelDisconnected,
 }

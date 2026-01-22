@@ -17,7 +17,7 @@
 use super::{BouncingBall, MessageFromSimulatorToGui};
 use crate::gui::{BouncingAreaConfig, MessageFromGuiToSimulator};
 use multi_agent::MultiAgentSimulation;
-use rand::{rngs::ThreadRng, Rng};
+use rand::{Rng, rngs::ThreadRng};
 use std::time::Duration;
 
 #[derive(Debug, Default)]
@@ -57,7 +57,7 @@ impl BouncingBallsSimulator {
         if count >= self.balls.len() {
             self.balls.clear();
         } else {
-            self.balls.drain(0..count);
+            self.balls.truncate(self.balls.len() - count);
         }
     }
 
@@ -148,7 +148,7 @@ impl MultiAgentSimulation for BouncingBallsSimulator {
         _send_message_to_gui: F,
     ) -> multi_agent::Result<&Self::SimulationData>
     where
-        F: Fn(Self::MessageToGui) -> multi_agent::Result<()>,
+        F: Fn(Self::MessageToGui),
     {
         let (width, height): (f32, f32) = (gui_data.width, gui_data.height);
 

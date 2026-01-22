@@ -24,8 +24,8 @@ pub struct MessageReceiver<T> {
 
 impl<T> MessageReceiver<T> {
     #[inline]
-    pub(super) fn new(sender: Receiver<T>) -> Self {
-        Self { inner: sender }
+    pub(super) fn new(receiver: Receiver<T>) -> Self {
+        Self { inner: receiver }
     }
 
     #[inline]
