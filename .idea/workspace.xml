@@ -30,38 +30,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Remove multiple versions for dependency warnings">
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/gui/app.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/gui/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/gui/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/gui/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/simulation/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/simulation/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/simulation/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/fluid/src/simulation/simulator.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/gui/app.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/gui/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/gui/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/gui/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/simulator.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/gui/app.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/gui/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/gui/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/gui/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/simulation/data.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/simulation/message.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/simulation/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/workshop/physarum/src/simulation/simulator.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/fluid/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/fluid/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/game-of-life/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/game-of-life/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/physarum/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/physarum/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/app.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/simulator.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/app.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/simulator.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/app.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/main.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/data.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/message.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/simulator.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,7 @@
       <workItem from="1769090413707" duration="3825000" />
       <workItem from="1769096700163" duration="28000" />
       <workItem from="1769099590644" duration="51000" />
-      <workItem from="1769100125933" duration="593000" />
+      <workItem from="1769100125933" duration="2148000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
