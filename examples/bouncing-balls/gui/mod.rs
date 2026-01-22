@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+mod app;
 mod data;
 mod message;
-mod ui;
 
-pub use ui::BouncingBallsGui;
-pub use message::MessageFromGuiToSimulator;
+pub use app::BouncingBallsGui;
 pub use data::BouncingAreaConfig;
+pub use message::MessageFromGuiToSimulator;

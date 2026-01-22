@@ -18,8 +18,9 @@ mod gui;
 mod simulation;
 
 use gui::BouncingBallsGui;
-use multi_agent::AppLauncher;
 use simulation::BouncingBallsSimulator;
+
+use multi_agent::AppLauncher;
 
 fn main() -> multi_agent::Result<()> {
     AppLauncher::run::<BouncingBallsSimulator, BouncingBallsGui>()

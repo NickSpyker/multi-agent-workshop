@@ -17,7 +17,7 @@
 use super::{BouncingBall, MessageFromSimulatorToGui};
 use crate::gui::{BouncingAreaConfig, MessageFromGuiToSimulator};
 use multi_agent::MultiAgentSimulation;
-use rand::{Rng, rngs::ThreadRng};
+use rand::{rngs::ThreadRng, Rng};
 use std::time::Duration;
 
 #[derive(Debug, Default)]
