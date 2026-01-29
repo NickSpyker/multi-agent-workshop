@@ -337,6 +337,10 @@ impl GameOfLifeGui {
 
     #[allow(clippy::cast_possible_truncation, clippy::cast_precision_loss)]
     fn render_grid(&self, painter: &egui::Painter, rect: Rect) {
+        if self.zoom < 4.0 {
+            return;
+        }
+
         let grid_color = Color32::from_gray(40);
         let origin_color = Color32::from_gray(80);
 

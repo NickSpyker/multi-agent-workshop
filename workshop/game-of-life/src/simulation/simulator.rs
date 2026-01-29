@@ -2,7 +2,8 @@ use super::{GameOfLife, MessageFromSimulatorToGui};
 use crate::gui::{GameOfLifeConfig, MessageFromGuiToSimulator};
 use multi_agent::{MultiAgentSimulation, Result};
 use rayon::prelude::*;
-use std::{collections::HashSet, time::Duration};
+use rustc_hash::FxHashSet;
+use std::time::Duration;
 
 #[derive(Debug)]
 pub struct GameOfLifeSimulator {
@@ -80,7 +81,7 @@ impl GameOfLifeSimulator {
         };
 
         // Collect alive cells + their neighbors
-        let candidates: HashSet<(i64, i64)> = cells
+        let candidates: FxHashSet<(i64, i64)> = cells
             .par_iter()
             .flat_map(|&(x, y)| {
                 (-1..=1)
