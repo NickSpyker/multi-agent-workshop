@@ -187,7 +187,7 @@ impl MultiAgentGui for GameOfLifeGui {
         }
 
         // Handle cell placement/removal with left/right click and drag
-        self.handle_cell_interaction(ui, &response, available_rect, send_message_to_simulation);
+        self.handle_cell_interaction(ui, available_rect, send_message_to_simulation);
 
         // Render the grid
         let painter = ui.painter_at(available_rect);
@@ -218,13 +218,8 @@ impl GameOfLifeGui {
 
     /// Handle cell placement and removal on left/right click and drag
     #[allow(clippy::cast_possible_truncation)]
-    fn handle_cell_interaction<F>(
-        &mut self,
-        ui: &Ui,
-        _response: &egui::Response,
-        rect: Rect,
-        mut send_message: F,
-    ) where
+    fn handle_cell_interaction<F>(&mut self, ui: &Ui, rect: Rect, mut send_message: F)
+    where
         F: FnMut(MessageFromGuiToSimulator),
     {
         // Don't draw cells while panning
