@@ -4,6 +4,10 @@ edition = "2024"
 
 [dependencies]
 multi-agent.workspace = true
+# Embedded assets
+include_dir = { version = "0.7.4", features = ["default"] }
+# Parallelization
+rayon = { version = "1.11.0", features = [] }
 # Graphical User Interface Dependencies
 eframe.workspace = true
 egui.workspace = true

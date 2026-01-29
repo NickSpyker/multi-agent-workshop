@@ -1,4 +1,5 @@
 mod gui;
+mod rle;
 mod simulation;
 
 use gui::GameOfLifeGui;
