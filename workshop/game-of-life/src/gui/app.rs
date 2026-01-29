@@ -88,7 +88,7 @@ impl MultiAgentGui for GameOfLifeGui {
         ui.label("Tick Rate (per second):");
         if ui
             .add(
-                egui::Slider::new(&mut self.config.tick_rate_per_second, 0.1..=60.0)
+                egui::Slider::new(&mut self.config.tick_rate_per_second, 0.1..=240.0)
                     .logarithmic(true),
             )
             .changed()
