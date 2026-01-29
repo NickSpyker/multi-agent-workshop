@@ -5,7 +5,14 @@
       "Bash(rustc:*)",
       "Bash(cargo check:*)",
       "Bash(cargo build:*)",
-      "Bash(cargo clippy:*)"
+      "Bash(cargo clippy:*)",
+      "WebFetch(domain:copy.sh)",
+      "WebFetch(domain:conwaylife.com)",
+      "WebFetch(domain:students.cs.byu.edu)",
+      "WebFetch(domain:psoup.math.wisc.edu)",
+      "WebFetch(domain:www.conwaylife.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:conwaylife.appspot.com)"
     ]
   }
 }

@@ -1,9 +1,26 @@
 use std::collections::HashSet;
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Clone)]
 pub struct GameOfLife {
     pub cells: HashSet<(i64, i64)>,
     pub generation: u64,
+}
+
+impl Default for GameOfLife {
+    fn default() -> Self {
+        let mut cells: HashSet<(i64, i64)> = HashSet::new();
+
+        cells.insert((1, -3));
+        cells.insert((2, -2));
+        cells.insert((2, -3));
+        cells.insert((2, -4));
+        cells.insert((3, -4));
+
+        Self {
+            cells,
+            generation: 0,
+        }
+    }
 }
 
 impl GameOfLife {
