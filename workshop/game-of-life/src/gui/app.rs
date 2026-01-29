@@ -102,6 +102,7 @@ impl MultiAgentGui for GameOfLifeGui {
 
         // Statistics
         ui.heading("Statistics");
+        ui.label(format!("Generation: {}", simulation_data.generation));
         ui.label(format!("Living cells: {}", simulation_data.cells.len()));
 
         ui.add_space(10.0);
@@ -282,41 +283,57 @@ impl GameOfLifeGui {
         let min_y = top_left.y.floor() as i64 - 1;
         let max_y = bottom_right.y.ceil() as i64 + 1;
 
-        // Draw vertical lines
+        // Draw vertical lines (skip x=0, will be drawn last)
         for x in min_x..=max_x {
+            if x == 0 {
+                continue;
+            }
             let screen_x = self.grid_to_screen(Vec2::new(x as f32, 0.0), rect).x;
-            let color = if x == 0 { origin_color } else { grid_color };
-            let stroke = if x == 0 {
-                Stroke::new(2.0, color)
-            } else {
-                Stroke::new(1.0, color)
-            };
             painter.line_segment(
                 [
                     Pos2::new(screen_x, rect.top()),
                     Pos2::new(screen_x, rect.bottom()),
                 ],
-                stroke,
+                Stroke::new(1.0, grid_color),
             );
         }
 
-        // Draw horizontal lines
+        // Draw horizontal lines (skip y=0, will be drawn last)
         for y in min_y..=max_y {
+            if y == 0 {
+                continue;
+            }
             let screen_y = self.grid_to_screen(Vec2::new(0.0, y as f32), rect).y;
-            let color = if y == 0 { origin_color } else { grid_color };
-            let stroke = if y == 0 {
-                Stroke::new(2.0, color)
-            } else {
-                Stroke::new(1.0, color)
-            };
             painter.line_segment(
                 [
                     Pos2::new(rect.left(), screen_y),
                     Pos2::new(rect.right(), screen_y),
                 ],
-                stroke,
+                Stroke::new(1.0, grid_color),
             );
         }
+
+        // Draw origin axes last (on top of everything)
+        let origin_x = self.grid_to_screen(Vec2::new(0.0, 0.0), rect).x;
+        let origin_y = self.grid_to_screen(Vec2::new(0.0, 0.0), rect).y;
+
+        // Y axis (x=0)
+        painter.line_segment(
+            [
+                Pos2::new(origin_x, rect.top()),
+                Pos2::new(origin_x, rect.bottom()),
+            ],
+            Stroke::new(2.0, origin_color),
+        );
+
+        // X axis (y=0)
+        painter.line_segment(
+            [
+                Pos2::new(rect.left(), origin_y),
+                Pos2::new(rect.right(), origin_y),
+            ],
+            Stroke::new(2.0, origin_color),
+        );
     }
 
     /// Render living cells as white squares

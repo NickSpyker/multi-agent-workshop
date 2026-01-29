@@ -35,7 +35,10 @@ impl MultiAgentSimulation for GameOfLifeSimulator {
             match message {
                 Self::MessageFromGui::SpawnCells(cells) => self.data.spawn(cells),
                 Self::MessageFromGui::RemoveCells(cells) => self.data.remove(cells),
-                Self::MessageFromGui::Reset => self.data.cells.clear(),
+                Self::MessageFromGui::Reset => {
+                    self.data.cells.clear();
+                    self.data.generation = 0;
+                }
             }
         }
 
@@ -50,6 +53,7 @@ impl MultiAgentSimulation for GameOfLifeSimulator {
 
             while self.accumulated_time >= tick_duration {
                 self.process_tick();
+                self.data.generation += 1;
                 self.accumulated_time -= tick_duration;
             }
         }
@@ -60,7 +64,7 @@ impl MultiAgentSimulation for GameOfLifeSimulator {
 
 impl GameOfLifeSimulator {
     fn process_tick(&mut self) {
-        let GameOfLife { cells } = &mut self.data;
+        let GameOfLife { cells, .. } = &mut self.data;
 
         let count_neighbors = |x: i64, y: i64| -> u8 {
             let mut count: u8 = 0;

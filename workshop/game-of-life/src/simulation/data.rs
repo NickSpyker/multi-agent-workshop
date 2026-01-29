@@ -3,6 +3,7 @@ use std::collections::HashSet;
 #[derive(Debug, Default, Clone)]
 pub struct GameOfLife {
     pub cells: HashSet<(i64, i64)>,
+    pub generation: u64,
 }
 
 impl GameOfLife {
