@@ -13,6 +13,46 @@ pub struct Pattern {
 }
 
 impl Pattern {
+    /// Get the display name for this pattern
+    pub fn display_name(&self) -> String {
+        self.name
+            .clone()
+            .unwrap_or_else(|| "Unnamed Pattern".to_string())
+    }
+
+    /// Get cells offset to be centered around (0, 0)
+    #[allow(clippy::cast_possible_wrap)]
+    pub fn centered_cells(&self) -> Vec<(i64, i64)> {
+        let offset_x = self.width as i64 / 2;
+        let offset_y = self.height as i64 / 2;
+        self.cells
+            .iter()
+            .map(|&(x, y)| (x - offset_x, y - offset_y))
+            .collect()
+    }
+
+    /// Get cells placed at a specific position (centered on that position)
+    #[allow(clippy::cast_possible_wrap)]
+    pub fn cells_at_position(&self, pos_x: i64, pos_y: i64) -> Vec<(i64, i64)> {
+        let offset_x = self.width as i64 / 2;
+        let offset_y = self.height as i64 / 2;
+        self.cells
+            .iter()
+            .map(|&(x, y)| (x - offset_x + pos_x, y - offset_y + pos_y))
+            .collect()
+    }
+
+    /// Rotate the pattern 90 degrees clockwise
+    pub fn rotate_cw(&mut self) {
+        let new_cells: std::collections::HashSet<(i64, i64)> = self
+            .cells
+            .iter()
+            .map(|&(x, y)| (self.height as i64 - 1 - y, x))
+            .collect();
+        self.cells = new_cells;
+        std::mem::swap(&mut self.width, &mut self.height);
+    }
+
     pub fn parse_rle(input: &str) -> Result<Pattern, ParseError> {
         let mut name: Option<String> = None;
         let mut author: Option<String> = None;

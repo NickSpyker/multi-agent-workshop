@@ -1,10 +1,10 @@
 use super::{GameOfLifeConfig, MessageFromGuiToSimulator};
+use crate::rle::{Pattern, PatternCollection};
 use crate::simulation::{GameOfLife, MessageFromSimulatorToGui};
 use eframe::Frame;
 use egui::{Color32, Context, Pos2, Rect, Sense, Stroke, Ui, Vec2};
 use multi_agent::{GuardArc, MultiAgentGui};
 
-#[derive(Debug)]
 pub struct GameOfLifeGui {
     /// Current view offset (pan position) in grid coordinates
     offset: Vec2,
@@ -18,10 +18,38 @@ pub struct GameOfLifeGui {
     last_drawn_cell: Option<(i64, i64)>,
     /// Current config state for returning updates
     config: GameOfLifeConfig,
+    /// Pattern collection (loaded once at startup)
+    pattern_collection: Option<PatternCollection>,
+    /// Current search query for pattern browser
+    pattern_search: String,
+    /// Currently selected pattern for placement
+    selected_pattern: Option<Pattern>,
+    /// Whether we're in pattern placement mode
+    placing_pattern: bool,
+}
+
+impl std::fmt::Debug for GameOfLifeGui {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("GameOfLifeGui")
+            .field("offset", &self.offset)
+            .field("zoom", &self.zoom)
+            .field("is_panning", &self.is_panning)
+            .field("last_pan_pos", &self.last_pan_pos)
+            .field("last_drawn_cell", &self.last_drawn_cell)
+            .field("config", &self.config)
+            .field("pattern_collection", &self.pattern_collection.as_ref().map(|c| c.len()))
+            .field("pattern_search", &self.pattern_search)
+            .field("selected_pattern", &self.selected_pattern.as_ref().map(|p| p.display_name()))
+            .field("placing_pattern", &self.placing_pattern)
+            .finish()
+    }
 }
 
 impl Default for GameOfLifeGui {
     fn default() -> Self {
+        // Try to load pattern collection, log error if it fails
+        let pattern_collection = PatternCollection::load().ok();
+
         Self {
             offset: Vec2::ZERO,
             zoom: 20.0,
@@ -29,6 +57,10 @@ impl Default for GameOfLifeGui {
             last_pan_pos: None,
             last_drawn_cell: None,
             config: GameOfLifeConfig::default(),
+            pattern_collection,
+            pattern_search: String::new(),
+            selected_pattern: None,
+            placing_pattern: false,
         }
     }
 }
@@ -126,12 +158,82 @@ impl MultiAgentGui for GameOfLifeGui {
         ui.separator();
         ui.add_space(10.0);
 
+        // Pattern browser section
+        ui.heading("Patterns");
+
+        // Show placement mode status
+        if self.placing_pattern {
+            ui.colored_label(Color32::YELLOW, "Click on grid to place pattern");
+            ui.horizontal(|ui| {
+                if ui.button("Cancel").clicked() {
+                    self.placing_pattern = false;
+                    self.selected_pattern = None;
+                }
+                if ui.button("Rotate").clicked() {
+                    if let Some(ref mut pattern) = self.selected_pattern {
+                        pattern.rotate_cw();
+                    }
+                }
+            });
+            ui.add_space(5.0);
+        }
+
+        // Pattern search
+        ui.horizontal(|ui| {
+            ui.label("Search:");
+            ui.text_edit_singleline(&mut self.pattern_search);
+        });
+
+        // Pattern list
+        if let Some(ref collection) = self.pattern_collection {
+            let patterns: Vec<&Pattern> = if self.pattern_search.is_empty() {
+                collection.patterns().iter().collect()
+            } else {
+                collection.search(&self.pattern_search)
+            };
+
+            ui.label(format!("{} patterns found", patterns.len()));
+
+            egui::ScrollArea::vertical()
+                .max_height(200.0)
+                .show(ui, |ui| {
+                    for pattern in patterns.iter().take(100) {
+                        let is_selected = self
+                            .selected_pattern
+                            .as_ref()
+                            .map_or(false, |p| p.display_name() == pattern.display_name());
+
+                        let label = format!(
+                            "{} ({}x{})",
+                            pattern.display_name(),
+                            pattern.width,
+                            pattern.height
+                        );
+
+                        if ui.selectable_label(is_selected, label).clicked() {
+                            self.selected_pattern = Some((*pattern).clone());
+                            self.placing_pattern = true;
+                        }
+                    }
+                });
+        } else {
+            ui.colored_label(Color32::RED, "Failed to load patterns");
+        }
+
+        ui.add_space(10.0);
+        ui.separator();
+        ui.add_space(10.0);
+
         // Mouse controls help
         ui.heading("Mouse Controls");
         ui.label("Left click/drag: Add cells");
         ui.label("Right click/drag: Remove cells");
         ui.label("Middle drag: Pan view");
         ui.label("Scroll wheel: Zoom");
+        if self.placing_pattern {
+            ui.colored_label(Color32::YELLOW, "Left click: Place pattern");
+            ui.colored_label(Color32::YELLOW, "Right click: Cancel");
+        }
 
         if config_changed {
             Some(self.config.clone())
@@ -187,13 +289,23 @@ impl MultiAgentGui for GameOfLifeGui {
             self.is_panning = false;
         }
 
-        // Handle cell placement/removal with left/right click and drag
-        self.handle_cell_interaction(ui, available_rect, send_message_to_simulation);
+        // Handle cell placement/removal or pattern placement
+        if self.placing_pattern {
+            self.handle_pattern_placement(ui, available_rect, send_message_to_simulation);
+        } else {
+            self.handle_cell_interaction(ui, available_rect, send_message_to_simulation);
+        }
 
         // Render the grid
         let painter = ui.painter_at(available_rect);
         self.render_grid(&painter, available_rect);
         self.render_cells(&painter, available_rect, simulation_data);
+
+        // Render pattern preview if in placement mode
+        if self.placing_pattern {
+            self.render_pattern_preview(&painter, ui, available_rect);
+        }
+
         self.render_coordinates(ui, available_rect);
     }
 }
@@ -458,6 +570,95 @@ impl GameOfLifeGui {
             50
         } else {
             100
+        }
+    }
+
+    /// Handle pattern placement when in placement mode
+    #[allow(clippy::cast_possible_truncation)]
+    fn handle_pattern_placement<F>(&mut self, ui: &Ui, rect: Rect, mut send_message: F)
+    where
+        F: FnMut(MessageFromGuiToSimulator),
+    {
+        // Don't place while panning
+        if self.is_panning {
+            return;
+        }
+
+        let primary_clicked = ui.input(|i| i.pointer.primary_clicked());
+        let secondary_clicked = ui.input(|i| i.pointer.secondary_clicked());
+
+        // Cancel placement on right click
+        if secondary_clicked {
+            self.placing_pattern = false;
+            self.selected_pattern = None;
+            return;
+        }
+
+        // Place pattern on left click
+        if primary_clicked {
+            if let Some(pos) = ui.input(|i| i.pointer.hover_pos()) {
+                if rect.contains(pos) {
+                    if let Some(ref pattern) = self.selected_pattern {
+                        let grid_pos = self.screen_to_grid(pos, rect);
+                        let cell_x = grid_pos.x.floor() as i64;
+                        let cell_y = grid_pos.y.floor() as i64;
+
+                        let cells = pattern.cells_at_position(cell_x, cell_y);
+                        send_message(MessageFromGuiToSimulator::PlacePattern(cells));
+
+                        // Stay in placement mode so user can place multiple copies
+                        // They can cancel with right click or Escape
+                    }
+                }
+            }
+        }
+
+        // Handle Escape key to cancel
+        if ui.input(|i| i.key_pressed(egui::Key::Escape)) {
+            self.placing_pattern = false;
+            self.selected_pattern = None;
+        }
+
+        // Handle R key to rotate
+        if ui.input(|i| i.key_pressed(egui::Key::R)) {
+            if let Some(ref mut pattern) = self.selected_pattern {
+                pattern.rotate_cw();
+            }
+        }
+    }
+
+    /// Render pattern preview at mouse position
+    #[allow(clippy::cast_possible_truncation, clippy::cast_precision_loss)]
+    fn render_pattern_preview(&self, painter: &egui::Painter, ui: &Ui, rect: Rect) {
+        let Some(ref pattern) = self.selected_pattern else {
+            return;
+        };
+
+        let Some(mouse_pos) = ui.input(|i| i.pointer.hover_pos()) else {
+            return;
+        };
+
+        if !rect.contains(mouse_pos) {
+            return;
+        }
+
+        let grid_pos = self.screen_to_grid(mouse_pos, rect);
+        let cell_x = grid_pos.x.floor() as i64;
+        let cell_y = grid_pos.y.floor() as i64;
+
+        // Get pattern cells at this position
+        let cells = pattern.cells_at_position(cell_x, cell_y);
+
+        // Render with semi-transparent yellow color
+        let preview_color = Color32::from_rgba_unmultiplied(255, 255, 0, 150);
+
+        for (x, y) in cells {
+            let top_left_screen = self.grid_to_screen(Vec2::new(x as f32, y as f32), rect);
+            let bottom_right_screen =
+                self.grid_to_screen(Vec2::new((x + 1) as f32, (y + 1) as f32), rect);
+
+            let cell_rect = Rect::from_two_pos(top_left_screen, bottom_right_screen).shrink(1.0);
+            painter.rect_filled(cell_rect, 0.0, preview_color);
         }
     }
 }

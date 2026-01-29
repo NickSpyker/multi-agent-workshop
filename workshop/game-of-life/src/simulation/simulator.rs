@@ -39,6 +39,7 @@ impl MultiAgentSimulation for GameOfLifeSimulator {
                     self.data.cells.clear();
                     self.data.generation = 0;
                 }
+                Self::MessageFromGui::PlacePattern(cells) => self.data.spawn(cells),
             }
         }
 

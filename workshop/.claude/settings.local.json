@@ -12,7 +12,14 @@
       "WebFetch(domain:psoup.math.wisc.edu)",
       "WebFetch(domain:www.conwaylife.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:conwaylife.appspot.com)"
+      "WebFetch(domain:conwaylife.appspot.com)",
+      "Bash(grep:*)",
+      "Bash(for file in *.rle)",
+      "Bash(do grep -E \"^[^#x].*[A-Z]\" \"$file\")",
+      "Bash(echo:*)",
+      "Bash(break)",
+      "Bash(done)",
+      "Bash(cargo test:*)"
     ]
   }
 }
