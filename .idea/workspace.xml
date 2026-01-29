@@ -30,42 +30,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Remove multiple versions for dependency warnings">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Run_Example_Counter.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/app.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/gui/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/fluid/src/simulation/simulator.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/app.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/gui/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/simulator.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/app.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/gui/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/main.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/data.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/message.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/physarum/src/simulation/simulator.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/data.rs" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/game-of-life/src/simulation/data.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:dev" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -125,7 +99,7 @@
     "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/Spijkerman/Repositories/multi-agent-workshop/workshop/boids",
+    "last_opened_file_path": "C:/Users/nicos/Repositories/multi-agent-workshop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -134,7 +108,7 @@
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "configurable.group.editor",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -153,9 +127,8 @@
       <recent name="C:\Users\Spijkerman\Repositories\multi-agent-workshop\examples\bouncing-balls\simulation" />
     </key>
   </component>
-  <component name="RunManager" selected="Cargo.Run Example Bouncing Balls">
+  <component name="RunManager" selected="Cargo.Test">
     <list>
-      <item itemvalue="Cargo.Run Example Counter" />
       <item itemvalue="Cargo.Test" />
       <item itemvalue="Cargo.Run Example Bouncing Balls" />
     </list>
@@ -178,6 +151,8 @@
       <workItem from="1769096700163" duration="28000" />
       <workItem from="1769099590644" duration="51000" />
       <workItem from="1769100125933" duration="2148000" />
+      <workItem from="1769607083047" duration="239000" />
+      <workItem from="1769678276694" duration="308000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
