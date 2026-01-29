@@ -11,9 +11,11 @@ pub struct GameOfLifeGui {
     /// Current zoom level (pixels per cell)
     zoom: f32,
     /// Whether the user is currently dragging to pan
-    is_dragging: bool,
-    /// Last mouse position during drag
-    last_drag_pos: Option<Pos2>,
+    is_panning: bool,
+    /// Last mouse position during pan drag
+    last_pan_pos: Option<Pos2>,
+    /// Last cell drawn (to avoid redrawing same cell while dragging)
+    last_drawn_cell: Option<(i64, i64)>,
     /// Current config state for returning updates
     config: GameOfLifeConfig,
 }
@@ -23,8 +25,9 @@ impl Default for GameOfLifeGui {
         Self {
             offset: Vec2::ZERO,
             zoom: 20.0,
-            is_dragging: false,
-            last_drag_pos: None,
+            is_panning: false,
+            last_pan_pos: None,
+            last_drawn_cell: None,
             config: GameOfLifeConfig::default(),
         }
     }
@@ -47,8 +50,11 @@ impl MultiAgentGui for GameOfLifeGui {
         _ctx: &Context,
         _frame: &mut Frame,
         ui: &mut Ui,
-        _send_message_to_simulation: F,
-    ) -> Option<Self::GuiData> {
+        mut send_message_to_simulation: F,
+    ) -> Option<Self::GuiData>
+    where
+        F: FnMut(Self::MessageToSimulation),
+    {
         let mut config_changed = false;
 
         ui.heading("Controls");
@@ -68,6 +74,11 @@ impl MultiAgentGui for GameOfLifeGui {
                 config_changed = true;
             }
         });
+
+        // Reset button to clear all cells
+        if ui.button("Reset Cells").clicked() {
+            send_message_to_simulation(MessageFromGuiToSimulator::Reset);
+        }
 
         ui.add_space(10.0);
         ui.separator();
@@ -110,6 +121,17 @@ impl MultiAgentGui for GameOfLifeGui {
             self.zoom = 20.0;
         }
 
+        ui.add_space(10.0);
+        ui.separator();
+        ui.add_space(10.0);
+
+        // Mouse controls help
+        ui.heading("Mouse Controls");
+        ui.label("Left click/drag: Add cells");
+        ui.label("Right click/drag: Remove cells");
+        ui.label("Middle drag: Pan view");
+        ui.label("Scroll wheel: Zoom");
+
         if config_changed {
             Some(self.config.clone())
         } else {
@@ -147,25 +169,25 @@ impl MultiAgentGui for GameOfLifeGui {
             }
         }
 
-        // Handle panning with right mouse button or middle mouse button
-        let is_panning = ui.input(|i| i.pointer.secondary_down() || i.pointer.middle_down());
+        // Handle panning with middle mouse button only
+        let is_panning = ui.input(|i| i.pointer.middle_down());
 
         if is_panning {
             if let Some(current_pos) = ui.input(|i| i.pointer.hover_pos()) {
-                if let Some(last_pos) = self.last_drag_pos {
+                if let Some(last_pos) = self.last_pan_pos {
                     let delta = current_pos - last_pos;
                     self.offset -= Vec2::new(delta.x / self.zoom, delta.y / self.zoom);
                 }
-                self.last_drag_pos = Some(current_pos);
-                self.is_dragging = true;
+                self.last_pan_pos = Some(current_pos);
+                self.is_panning = true;
             }
         } else {
-            self.last_drag_pos = None;
-            self.is_dragging = false;
+            self.last_pan_pos = None;
+            self.is_panning = false;
         }
 
-        // Handle cell placement/removal with left click
-        self.handle_cell_interaction(&response, available_rect, send_message_to_simulation);
+        // Handle cell placement/removal with left/right click and drag
+        self.handle_cell_interaction(ui, &response, available_rect, send_message_to_simulation);
 
         // Render the grid
         let painter = ui.painter_at(available_rect);
@@ -194,34 +216,59 @@ impl GameOfLifeGui {
         )
     }
 
-    /// Handle cell placement and removal on left click
+    /// Handle cell placement and removal on left/right click and drag
     #[allow(clippy::cast_possible_truncation)]
-    fn handle_cell_interaction<F>(&self, response: &egui::Response, rect: Rect, mut send_message: F)
-    where
+    fn handle_cell_interaction<F>(
+        &mut self,
+        ui: &Ui,
+        _response: &egui::Response,
+        rect: Rect,
+        mut send_message: F,
+    ) where
         F: FnMut(MessageFromGuiToSimulator),
     {
-        if response.clicked()
-            && !self.is_dragging
-            && let Some(pos) = response.interact_pointer_pos()
-        {
-            let grid_pos = self.screen_to_grid(pos, rect);
-            let cell_x = grid_pos.x.floor() as i64;
-            let cell_y = grid_pos.y.floor() as i64;
-            send_message(MessageFromGuiToSimulator::SpawnCells(vec![(
-                cell_x, cell_y,
-            )]));
+        // Don't draw cells while panning
+        if self.is_panning {
+            self.last_drawn_cell = None;
+            return;
         }
 
-        if response.secondary_clicked()
-            && !self.is_dragging
-            && let Some(pos) = response.interact_pointer_pos()
-        {
-            let grid_pos = self.screen_to_grid(pos, rect);
-            let cell_x = grid_pos.x.floor() as i64;
-            let cell_y = grid_pos.y.floor() as i64;
-            send_message(MessageFromGuiToSimulator::RemoveCells(vec![(
-                cell_x, cell_y,
-            )]));
+        let primary_down = ui.input(|i| i.pointer.primary_down());
+        let secondary_down = ui.input(|i| i.pointer.secondary_down());
+
+        // Reset last drawn cell when no button is pressed
+        if !primary_down && !secondary_down {
+            self.last_drawn_cell = None;
+            return;
+        }
+
+        // Get current mouse position
+        let Some(pos) = ui.input(|i| i.pointer.hover_pos()) else {
+            return;
+        };
+
+        // Check if we're within the content area
+        if !rect.contains(pos) {
+            return;
+        }
+
+        // Convert to grid coordinates
+        let grid_pos = self.screen_to_grid(pos, rect);
+        let cell_x = grid_pos.x.floor() as i64;
+        let cell_y = grid_pos.y.floor() as i64;
+        let current_cell = (cell_x, cell_y);
+
+        // Only send message if we moved to a new cell
+        if self.last_drawn_cell == Some(current_cell) {
+            return;
+        }
+
+        self.last_drawn_cell = Some(current_cell);
+
+        if primary_down {
+            send_message(MessageFromGuiToSimulator::SpawnCells(vec![current_cell]));
+        } else if secondary_down {
+            send_message(MessageFromGuiToSimulator::RemoveCells(vec![current_cell]));
         }
     }
 

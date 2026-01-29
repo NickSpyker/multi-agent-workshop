@@ -35,6 +35,7 @@ impl MultiAgentSimulation for GameOfLifeSimulator {
             match message {
                 Self::MessageFromGui::SpawnCells(cells) => self.data.spawn(cells),
                 Self::MessageFromGui::RemoveCells(cells) => self.data.remove(cells),
+                Self::MessageFromGui::Reset => self.data.cells.clear(),
             }
         }
 
