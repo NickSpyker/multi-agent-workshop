@@ -1220,6 +1220,7 @@ dependencies = [
  "include_dir",
  "multi-agent",
  "rayon",
+ "rustc-hash 2.1.1",
 ]
 
 [[package]]
