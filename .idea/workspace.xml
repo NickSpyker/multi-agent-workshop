@@ -29,12 +29,10 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Remove multiple versions for dependency warnings">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/release_workshop.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/release-workshop.yml" afterDir="false" />
+    <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add CI/CD">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workshop/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/.claude/settings.local.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/.idea/runConfigurations/Run_Game_of_Life.xml" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/.idea/runConfigurations/Run_Game_of_Life.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +153,7 @@
       <workItem from="1769100125933" duration="2148000" />
       <workItem from="1769607083047" duration="239000" />
       <workItem from="1769678276694" duration="308000" />
-      <workItem from="1769697449556" duration="155000" />
+      <workItem from="1769697449556" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />
@@ -285,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769100222502</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Add CI/CD">
+      <option name="closed" value="true" />
+      <created>1769697617070</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1769697617070</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +313,7 @@
     <MESSAGE value="Add example readme" />
     <MESSAGE value="Setup workshop packages and README" />
     <MESSAGE value="Remove multiple versions for dependency warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove multiple versions for dependency warnings" />
+    <MESSAGE value="Add CI/CD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add CI/CD" />
   </component>
 </project>
