@@ -28,8 +28,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libssl-dev libgtk-3-dev
 
-      - name: Run Tests
+      - name: Run Tests (main workspace)
         run: cargo test --workspace
+
+      - name: Run Tests (workshop)
+        run: cargo test --workspace
+        working-directory: workshop
 
   release:
     name: Release ${{ matrix.project }} for ${{ matrix.target }}
@@ -74,6 +78,7 @@ jobs:
           sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libssl-dev libgtk-3-dev
 
       - name: Build Release
+        working-directory: workshop
         run: cargo build --release --bin ${{ matrix.project }} --target ${{ matrix.target }}
 
       - name: Prepare Asset
@@ -81,10 +86,10 @@ jobs:
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
             ASSET_NAME="${{ matrix.project }}-${{ matrix.suffix }}.exe"
-            cp target/${{ matrix.target }}/release/${{ matrix.project }}.exe "$ASSET_NAME"
+            cp workshop/target/${{ matrix.target }}/release/${{ matrix.project }}.exe "$ASSET_NAME"
           else
             ASSET_NAME="${{ matrix.project }}-${{ matrix.suffix }}"
-            cp target/${{ matrix.target }}/release/${{ matrix.project }} "$ASSET_NAME"
+            cp workshop/target/${{ matrix.target }}/release/${{ matrix.project }} "$ASSET_NAME"
           fi
           echo "ASSET_NAME=$ASSET_NAME" >> $GITHUB_ENV
 

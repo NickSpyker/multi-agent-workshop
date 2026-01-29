@@ -20,7 +20,8 @@
       "Bash(break)",
       "Bash(done)",
       "Bash(cargo test:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
