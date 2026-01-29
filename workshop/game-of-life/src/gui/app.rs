@@ -596,7 +596,7 @@ impl GameOfLifeGui {
 
         Window::new("Pattern Browser")
             .open(&mut open)
-            .default_size([400.0, 500.0])
+            .default_size([200.0, 400.0])
             .resizable(true)
             .show(ctx, |ui| {
                 ui.horizontal(|ui| {

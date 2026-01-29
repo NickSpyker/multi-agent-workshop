@@ -4,11 +4,8 @@ use std::collections::HashSet;
 #[derive(Debug, Clone)]
 pub struct Pattern {
     pub name: Option<String>,
-    pub author: Option<String>,
-    pub comments: Vec<String>,
     pub width: u32,
     pub height: u32,
-    pub rule: String,
     pub cells: HashSet<(i64, i64)>,
 }
 
@@ -17,16 +14,6 @@ impl Pattern {
         self.name
             .clone()
             .unwrap_or_else(|| "Unnamed Pattern".to_string())
-    }
-
-    #[allow(clippy::cast_possible_wrap)]
-    pub fn centered_cells(&self) -> Vec<(i64, i64)> {
-        let offset_x = self.width as i64 / 2;
-        let offset_y = self.height as i64 / 2;
-        self.cells
-            .iter()
-            .map(|&(x, y)| (x - offset_x, y - offset_y))
-            .collect()
     }
 
     #[allow(clippy::cast_possible_wrap)]
@@ -40,7 +27,7 @@ impl Pattern {
     }
 
     pub fn rotate_cw(&mut self) {
-        let new_cells: std::collections::HashSet<(i64, i64)> = self
+        let new_cells: HashSet<(i64, i64)> = self
             .cells
             .iter()
             .map(|&(x, y)| (self.height as i64 - 1 - y, x))
@@ -51,7 +38,7 @@ impl Pattern {
 
     pub fn parse_rle(input: &str) -> Result<Pattern, ParseError> {
         let mut name: Option<String> = None;
-        let mut author: Option<String> = None;
+        // let mut author: Option<String> = None;
         let mut comments: Vec<String> = Vec::new();
         let mut width: Option<u32> = None;
         let mut height: Option<u32> = None;
@@ -63,8 +50,6 @@ impl Pattern {
 
             if let Some(n) = line.strip_prefix("#N ") {
                 name = Some(n.trim().to_string());
-            } else if let Some(o) = line.strip_prefix("#O ") {
-                author = Some(o.trim().to_string());
             } else if let Some(c) = line
                 .strip_prefix("#C ")
                 .or_else(|| line.strip_prefix("#c "))
@@ -85,11 +70,8 @@ impl Pattern {
 
         Ok(Pattern {
             name,
-            author,
-            comments,
             width,
             height,
-            rule,
             cells,
         })
     }
