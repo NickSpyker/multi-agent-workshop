@@ -4,7 +4,7 @@ use crate::{
     simulation::{GameOfLife, MessageFromSimulatorToGui},
 };
 use eframe::Frame;
-use egui::{Color32, Context, Pos2, Rect, Sense, Stroke, Ui, Vec2};
+use egui::{Color32, Context, Pos2, Rect, ScrollArea, Sense, Stroke, Ui, Vec2, Window};
 use multi_agent::{GuardArc, MultiAgentGui};
 use std::fmt::{self, Debug, Formatter};
 
@@ -19,6 +19,8 @@ pub struct GameOfLifeGui {
     pattern_search: String,
     selected_pattern: Option<Pattern>,
     placing_pattern: bool,
+    pattern_browser_open: bool,
+    dragging_popup: bool,
 }
 
 impl Debug for GameOfLifeGui {
@@ -40,6 +42,8 @@ impl Debug for GameOfLifeGui {
                 &self.selected_pattern.as_ref().map(|p| p.display_name()),
             )
             .field("placing_pattern", &self.placing_pattern)
+            .field("pattern_browser_open", &self.pattern_browser_open)
+            .field("dragging_popup", &self.dragging_popup)
             .finish()
     }
 }
@@ -57,6 +61,8 @@ impl Default for GameOfLifeGui {
             pattern_search: String::new(),
             selected_pattern: None,
             placing_pattern: false,
+            pattern_browser_open: false,
+            dragging_popup: false,
         }
     }
 }
@@ -152,59 +158,23 @@ impl MultiAgentGui for GameOfLifeGui {
         ui.heading("Patterns");
 
         if self.placing_pattern {
-            ui.colored_label(Color32::YELLOW, "Click on grid to place pattern");
+            if let Some(ref pattern) = self.selected_pattern {
+                ui.label(format!("Selected: {}", pattern.display_name()));
+            }
+            ui.colored_label(Color32::YELLOW, "Click on grid to place");
             ui.horizontal(|ui| {
                 if ui.button("Cancel").clicked() {
                     self.placing_pattern = false;
                     self.selected_pattern = None;
                 }
-                if ui.button("Rotate").clicked() {
+                if ui.button("Rotate (R)").clicked() {
                     if let Some(ref mut pattern) = self.selected_pattern {
                         pattern.rotate_cw();
                     }
                 }
             });
-            ui.add_space(5.0);
-        }
-
-        ui.horizontal(|ui| {
-            ui.label("Search:");
-            ui.text_edit_singleline(&mut self.pattern_search);
-        });
-
-        if let Some(ref collection) = self.pattern_collection {
-            let patterns: Vec<&Pattern> = if self.pattern_search.is_empty() {
-                collection.patterns().iter().collect()
-            } else {
-                collection.search(&self.pattern_search)
-            };
-
-            ui.label(format!("{} patterns found", patterns.len()));
-
-            egui::ScrollArea::vertical()
-                .max_height(200.0)
-                .show(ui, |ui| {
-                    for pattern in patterns.iter().take(100) {
-                        let is_selected = self
-                            .selected_pattern
-                            .as_ref()
-                            .map_or(false, |p| p.display_name() == pattern.display_name());
-
-                        let label = format!(
-                            "{} ({}x{})",
-                            pattern.display_name(),
-                            pattern.width,
-                            pattern.height
-                        );
-
-                        if ui.selectable_label(is_selected, label).clicked() {
-                            self.selected_pattern = Some((*pattern).clone());
-                            self.placing_pattern = true;
-                        }
-                    }
-                });
-        } else {
-            ui.colored_label(Color32::RED, "Failed to load patterns");
+        } else if ui.button("Browse Patterns...").clicked() {
+            self.pattern_browser_open = true;
         }
 
         ui.add_space(10.0);
@@ -231,7 +201,7 @@ impl MultiAgentGui for GameOfLifeGui {
     fn content<F>(
         &mut self,
         simulation_data: &GuardArc<Self::SimulationData>,
-        _ctx: &Context,
+        ctx: &Context,
         _frame: &mut Frame,
         ui: &mut Ui,
         send_message_to_simulation: F,
@@ -272,10 +242,22 @@ impl MultiAgentGui for GameOfLifeGui {
             self.is_panning = false;
         }
 
-        if self.placing_pattern {
-            self.handle_pattern_placement(ui, available_rect, send_message_to_simulation);
-        } else {
-            self.handle_cell_interaction(ui, available_rect, send_message_to_simulation);
+        let pointer_over_popup: bool = ctx.is_pointer_over_area();
+        let primary_down: bool = ui.input(|i| i.pointer.primary_down());
+
+        if primary_down && pointer_over_popup {
+            self.dragging_popup = true;
+        }
+        if !primary_down {
+            self.dragging_popup = false;
+        }
+
+        if !pointer_over_popup && !self.dragging_popup {
+            if self.placing_pattern {
+                self.handle_pattern_placement(ui, available_rect, send_message_to_simulation);
+            } else {
+                self.handle_cell_interaction(ui, available_rect, send_message_to_simulation);
+            }
         }
 
         let painter = ui.painter_at(available_rect);
@@ -287,6 +269,8 @@ impl MultiAgentGui for GameOfLifeGui {
         }
 
         self.render_coordinates(ui, available_rect);
+
+        self.render_pattern_browser_window(ctx);
     }
 }
 
@@ -601,5 +585,68 @@ impl GameOfLifeGui {
             let cell_rect = Rect::from_two_pos(top_left_screen, bottom_right_screen).shrink(1.0);
             painter.rect_filled(cell_rect, 0.0, preview_color);
         }
+    }
+
+    fn render_pattern_browser_window(&mut self, ctx: &Context) {
+        if !self.pattern_browser_open {
+            return;
+        }
+
+        let mut open: bool = self.pattern_browser_open;
+
+        Window::new("Pattern Browser")
+            .open(&mut open)
+            .default_size([400.0, 500.0])
+            .resizable(true)
+            .show(ctx, |ui| {
+                ui.horizontal(|ui| {
+                    ui.label("Search:");
+                    ui.text_edit_singleline(&mut self.pattern_search);
+                });
+
+                ui.add_space(5.0);
+
+                if let Some(ref collection) = self.pattern_collection {
+                    let patterns: Vec<&Pattern> = if self.pattern_search.is_empty() {
+                        collection.patterns().iter().collect()
+                    } else {
+                        collection.search(&self.pattern_search)
+                    };
+
+                    ui.label(format!("{} patterns found", patterns.len()));
+
+                    ui.add_space(5.0);
+                    ui.separator();
+                    ui.add_space(5.0);
+
+                    ScrollArea::vertical().show(ui, |ui| {
+                        for pattern in patterns.iter().take(200) {
+                            let is_selected = self
+                                .selected_pattern
+                                .as_ref()
+                                .map_or(false, |p| p.display_name() == pattern.display_name());
+
+                            ui.horizontal(|ui| {
+                                let label = format!(
+                                    "{} ({}x{})",
+                                    pattern.display_name(),
+                                    pattern.width,
+                                    pattern.height
+                                );
+
+                                if ui.selectable_label(is_selected, label).clicked() {
+                                    self.selected_pattern = Some((*pattern).clone());
+                                    self.placing_pattern = true;
+                                    self.pattern_browser_open = false;
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    ui.colored_label(Color32::RED, "Failed to load patterns");
+                }
+            });
+
+        self.pattern_browser_open = open;
     }
 }
