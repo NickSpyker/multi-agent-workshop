@@ -1,0 +1,99 @@
+name: Continuous Integration and Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Linux Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libssl-dev libgtk-3-dev
+
+      - name: Run Tests
+        run: cargo test --workspace
+
+  release:
+    name: Release ${{ matrix.project }} for ${{ matrix.target }}
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [ game-of-life, boids, fluid, physarum ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            suffix: linux
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            suffix: windows
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            suffix: macos
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Version
+        shell: bash
+        run: |
+          VERSION=$(grep -m 1 'version = "' Cargo.toml | cut -d '"' -f 2)
+          echo "PROJECT_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected version: $VERSION"
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libssl-dev libgtk-3-dev
+
+      - name: Build Release
+        run: cargo build --release --bin ${{ matrix.project }} --target ${{ matrix.target }}
+
+      - name: Prepare Asset
+        shell: bash
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            ASSET_NAME="${{ matrix.project }}-${{ matrix.suffix }}.exe"
+            cp target/${{ matrix.target }}/release/${{ matrix.project }}.exe "$ASSET_NAME"
+          else
+            ASSET_NAME="${{ matrix.project }}-${{ matrix.suffix }}"
+            cp target/${{ matrix.target }}/release/${{ matrix.project }} "$ASSET_NAME"
+          fi
+          echo "ASSET_NAME=$ASSET_NAME" >> $GITHUB_ENV
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.PROJECT_VERSION }}
+          name: v${{ env.PROJECT_VERSION }}
+          files: ${{ env.ASSET_NAME }}
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
