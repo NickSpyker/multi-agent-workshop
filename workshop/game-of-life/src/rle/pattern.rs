@@ -13,14 +13,12 @@ pub struct Pattern {
 }
 
 impl Pattern {
-    /// Get the display name for this pattern
     pub fn display_name(&self) -> String {
         self.name
             .clone()
             .unwrap_or_else(|| "Unnamed Pattern".to_string())
     }
 
-    /// Get cells offset to be centered around (0, 0)
     #[allow(clippy::cast_possible_wrap)]
     pub fn centered_cells(&self) -> Vec<(i64, i64)> {
         let offset_x = self.width as i64 / 2;
@@ -31,7 +29,6 @@ impl Pattern {
             .collect()
     }
 
-    /// Get cells placed at a specific position (centered on that position)
     #[allow(clippy::cast_possible_wrap)]
     pub fn cells_at_position(&self, pos_x: i64, pos_y: i64) -> Vec<(i64, i64)> {
         let offset_x = self.width as i64 / 2;
@@ -42,7 +39,6 @@ impl Pattern {
             .collect()
     }
 
-    /// Rotate the pattern 90 degrees clockwise
     pub fn rotate_cw(&mut self) {
         let new_cells: std::collections::HashSet<(i64, i64)> = self
             .cells
