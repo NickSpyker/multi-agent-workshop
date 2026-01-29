@@ -4,6 +4,7 @@ edition = "2024"
 
 [dependencies]
 multi-agent.workspace = true
+fastrand = "2.3"
 # Graphical User Interface Dependencies
 eframe.workspace = true
 egui.workspace = true
