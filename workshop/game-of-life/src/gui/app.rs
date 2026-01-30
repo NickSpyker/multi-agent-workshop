@@ -91,107 +91,109 @@ impl MultiAgentGui for GameOfLifeGui {
     {
         let mut config_changed: bool = false;
 
-        ui.heading("Controls");
-        ui.add_space(10.0);
+        ScrollArea::vertical().show(ui, |ui| {
+            ui.heading("Controls");
+            ui.add_space(10.0);
 
-        ui.horizontal(|ui| {
-            if ui
-                .button(if self.config.paused {
-                    "▶ Play"
-                } else {
-                    "⏸ Pause"
-                })
-                .clicked()
-            {
-                self.config.paused = !self.config.paused;
-                config_changed = true;
-            }
-        });
-
-        if ui.button("Reset Cells").clicked() {
-            send_message_to_simulation(MessageFromGuiToSimulator::Reset);
-        }
-
-        ui.add_space(10.0);
-        ui.separator();
-        ui.add_space(10.0);
-
-        ui.label("Tick Rate (per second):");
-        if ui
-            .add(
-                egui::Slider::new(&mut self.config.tick_rate_per_second, 0.1..=1024.0)
-                    .logarithmic(true),
-            )
-            .changed()
-        {
-            config_changed = true;
-        }
-
-        ui.add_space(10.0);
-        ui.separator();
-        ui.add_space(10.0);
-
-        ui.heading("Statistics");
-        ui.label(format!("Generation: {}", simulation_data.generation));
-        ui.label(format!("Living cells: {}", simulation_data.cells.len()));
-
-        ui.add_space(10.0);
-        ui.separator();
-        ui.add_space(10.0);
-
-        ui.heading("View");
-        ui.label(format!("Zoom: {:.1}x", self.zoom));
-        ui.label(format!(
-            "Offset: ({:.1}, {:.1})",
-            self.offset.x, self.offset.y
-        ));
-
-        if ui.button("Reset View").clicked() {
-            self.offset = Vec2::ZERO;
-            self.zoom = 20.0;
-        }
-
-        ui.add_space(10.0);
-        ui.separator();
-        ui.add_space(10.0);
-
-        ui.heading("Patterns");
-
-        if self.placing_pattern {
-            if let Some(ref pattern) = self.selected_pattern {
-                ui.label(format!("Selected: {}", pattern.display_name()));
-            }
-            ui.colored_label(Color32::YELLOW, "Click on grid to place");
             ui.horizontal(|ui| {
-                if ui.button("Cancel").clicked() {
-                    self.placing_pattern = false;
-                    self.selected_pattern = None;
-                }
-                if ui.button("Rotate (R)").clicked() {
-                    if let Some(ref mut pattern) = self.selected_pattern {
-                        pattern.rotate_cw();
-                    }
+                if ui
+                    .button(if self.config.paused {
+                        "▶ Play"
+                    } else {
+                        "⏸ Pause"
+                    })
+                    .clicked()
+                {
+                    self.config.paused = !self.config.paused;
+                    config_changed = true;
                 }
             });
-        } else if ui.button("Browse Patterns...").clicked() {
-            self.pattern_browser_open = true;
-        }
 
-        ui.add_space(10.0);
-        ui.separator();
-        ui.add_space(10.0);
+            if ui.button("Reset Cells").clicked() {
+                send_message_to_simulation(MessageFromGuiToSimulator::Reset);
+            }
 
-        ui.heading("Controls");
-        ui.label("Left click/drag: Add cells");
-        ui.label("Right click/drag: Remove cells");
-        ui.add_space(5.0);
-        ui.label("Pan: Middle drag or Space+drag");
-        ui.label("Zoom: Scroll or +/-");
-        if self.placing_pattern {
+            ui.add_space(10.0);
+            ui.separator();
+            ui.add_space(10.0);
+
+            ui.label("Tick Rate (per second):");
+            if ui
+                .add(
+                    egui::Slider::new(&mut self.config.tick_rate_per_second, 0.1..=1024.0)
+                        .logarithmic(true),
+                )
+                .changed()
+            {
+                config_changed = true;
+            }
+
+            ui.add_space(10.0);
+            ui.separator();
+            ui.add_space(10.0);
+
+            ui.heading("Statistics");
+            ui.label(format!("Generation: {}", simulation_data.generation));
+            ui.label(format!("Living cells: {}", simulation_data.cells.len()));
+
+            ui.add_space(10.0);
+            ui.separator();
+            ui.add_space(10.0);
+
+            ui.heading("View");
+            ui.label(format!("Zoom: {:.1}x", self.zoom));
+            ui.label(format!(
+                "Offset: ({:.1}, {:.1})",
+                self.offset.x, self.offset.y
+            ));
+
+            if ui.button("Reset View").clicked() {
+                self.offset = Vec2::ZERO;
+                self.zoom = 20.0;
+            }
+
+            ui.add_space(10.0);
+            ui.separator();
+            ui.add_space(10.0);
+
+            ui.heading("Patterns");
+
+            if self.placing_pattern {
+                if let Some(ref pattern) = self.selected_pattern {
+                    ui.label(format!("Selected: {}", pattern.display_name()));
+                }
+                ui.colored_label(Color32::YELLOW, "Click on grid to place");
+                ui.horizontal(|ui| {
+                    if ui.button("Cancel").clicked() {
+                        self.placing_pattern = false;
+                        self.selected_pattern = None;
+                    }
+                    if ui.button("Rotate (R)").clicked() {
+                        if let Some(ref mut pattern) = self.selected_pattern {
+                            pattern.rotate_cw();
+                        }
+                    }
+                });
+            } else if ui.button("Browse Patterns...").clicked() {
+                self.pattern_browser_open = true;
+            }
+
+            ui.add_space(10.0);
+            ui.separator();
+            ui.add_space(10.0);
+
+            ui.heading("Keyboard & Mouse");
+            ui.label("Left click/drag: Add cells");
+            ui.label("Right click/drag: Remove cells");
             ui.add_space(5.0);
-            ui.colored_label(Color32::YELLOW, "Left click: Place pattern");
-            ui.colored_label(Color32::YELLOW, "Right click: Cancel");
-        }
+            ui.label("Pan: Middle drag or Space+drag");
+            ui.label("Zoom: Scroll or +/-");
+            if self.placing_pattern {
+                ui.add_space(5.0);
+                ui.colored_label(Color32::YELLOW, "Left click: Place pattern");
+                ui.colored_label(Color32::YELLOW, "Right click: Cancel");
+            }
+        });
 
         if config_changed {
             Some(self.config.clone())
