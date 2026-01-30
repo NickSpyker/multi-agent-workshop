@@ -6,7 +6,6 @@ use std::time::Duration;
 #[derive(Debug)]
 pub struct BoidsSimulator {
     data: Boids,
-    accumulated_time: Duration,
 }
 
 impl MultiAgentSimulation for BoidsSimulator {
@@ -20,10 +19,7 @@ impl MultiAgentSimulation for BoidsSimulator {
         let mut data = Boids::default();
         data.spawn_random(initial_gui_data.boid_count, initial_gui_data.max_speed);
 
-        Ok(Self {
-            data,
-            accumulated_time: Duration::ZERO,
-        })
+        Ok(Self { data })
     }
 
     fn update<F>(
@@ -52,14 +48,8 @@ impl MultiAgentSimulation for BoidsSimulator {
             }
         }
 
-        if !gui_data.paused && gui_data.tick_rate_per_second > 0.0 {
-            let tick_duration = Duration::from_secs_f32(1.0 / gui_data.tick_rate_per_second);
-            self.accumulated_time += delta_time;
-
-            while self.accumulated_time >= tick_duration {
-                self.process_tick(&gui_data);
-                self.accumulated_time -= tick_duration;
-            }
+        if !gui_data.paused {
+            self.process_tick(&gui_data, delta_time.as_secs_f32());
         }
 
         Ok(&self.data)
@@ -67,8 +57,7 @@ impl MultiAgentSimulation for BoidsSimulator {
 }
 
 impl BoidsSimulator {
-    fn process_tick(&mut self, config: &BoidsConfig) {
-        let dt = 1.0 / config.tick_rate_per_second;
+    fn process_tick(&mut self, config: &BoidsConfig, dt: f32) {
         let boids_count = self.data.boids.len();
 
         if boids_count == 0 {
