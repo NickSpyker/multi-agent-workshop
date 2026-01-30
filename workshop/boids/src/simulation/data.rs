@@ -168,15 +168,6 @@ impl Default for Boids {
 }
 
 impl Boids {
-    #[must_use]
-    pub fn new(width: f32, height: f32) -> Self {
-        Self {
-            boids: Vec::new(),
-            width,
-            height,
-        }
-    }
-
     pub fn spawn_random(&mut self, count: usize, max_speed: f32) {
         let mut rng = fastrand::Rng::new();
         for _ in 0..count {

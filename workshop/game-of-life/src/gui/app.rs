@@ -181,12 +181,14 @@ impl MultiAgentGui for GameOfLifeGui {
         ui.separator();
         ui.add_space(10.0);
 
-        ui.heading("Mouse Controls");
+        ui.heading("Controls");
         ui.label("Left click/drag: Add cells");
         ui.label("Right click/drag: Remove cells");
-        ui.label("Middle drag: Pan view");
-        ui.label("Scroll wheel: Zoom");
+        ui.add_space(5.0);
+        ui.label("Pan: Middle drag or Space+drag");
+        ui.label("Zoom: Scroll or +/-");
         if self.placing_pattern {
+            ui.add_space(5.0);
             ui.colored_label(Color32::YELLOW, "Left click: Place pattern");
             ui.colored_label(Color32::YELLOW, "Right click: Cancel");
         }
@@ -226,9 +228,30 @@ impl MultiAgentGui for GameOfLifeGui {
             }
         }
 
-        let is_panning: bool = ui.input(|i| i.pointer.middle_down());
+        let zoom_in_pressed = ui.input(|i| {
+            i.key_pressed(egui::Key::Plus)
+                || i.key_pressed(egui::Key::Equals)
+                || (i.modifiers.ctrl && i.key_pressed(egui::Key::ArrowUp))
+        });
+        let zoom_out_pressed = ui.input(|i| {
+            i.key_pressed(egui::Key::Minus)
+                || (i.modifiers.ctrl && i.key_pressed(egui::Key::ArrowDown))
+        });
 
-        if is_panning {
+        if zoom_in_pressed {
+            self.zoom = (self.zoom * 1.2).clamp(2.0, 200.0);
+        }
+        if zoom_out_pressed {
+            self.zoom = (self.zoom / 1.2).clamp(2.0, 200.0);
+        }
+
+        let space_held =
+            ui.input(|i| i.modifiers.alt) || ui.input(|i| i.key_down(egui::Key::Space));
+        let middle_down = ui.input(|i| i.pointer.middle_down());
+        let primary_down = ui.input(|i| i.pointer.primary_down());
+        let is_panning_input = middle_down || (space_held && primary_down);
+
+        if is_panning_input && response.hovered() {
             if let Some(current_pos) = ui.input(|i| i.pointer.hover_pos()) {
                 if let Some(last_pos) = self.last_pan_pos {
                     let delta = current_pos - last_pos;
