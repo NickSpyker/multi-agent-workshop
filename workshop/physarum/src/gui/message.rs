@@ -1,2 +1,7 @@
 #[derive(Clone)]
-pub enum MessageFromGuiToSimulator {}
+pub enum MessageFromGuiToSimulator {
+    Reset,
+    SetAgentCount(usize),
+    ResizeWorld(usize, usize),
+    ClearTrails,
+}

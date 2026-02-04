@@ -8,6 +8,8 @@ multi-agent.workspace = true
 include_dir = { version = "0.7.4", features = ["default"] }
 # Parallelization
 rayon = { version = "1.11.0", features = [] }
+# Fast hashing (FxHash is ~2x faster than default SipHash for small keys)
+rustc-hash = { version = "2.1.1", features = ["default"] }
 # Graphical User Interface Dependencies
 eframe.workspace = true
 egui.workspace = true

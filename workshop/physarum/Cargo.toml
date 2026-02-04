@@ -7,6 +7,8 @@ multi-agent.workspace = true
 # Graphical User Interface Dependencies
 eframe.workspace = true
 egui.workspace = true
+# Random number generation
+fastrand.workspace = true
 
 [lints]
 workspace = true

@@ -473,6 +473,7 @@ version = "0.0.0"
 dependencies = [
  "eframe",
  "egui",
+ "fastrand",
  "multi-agent",
 ]
 
@@ -1220,6 +1221,7 @@ dependencies = [
  "include_dir",
  "multi-agent",
  "rayon",
+ "rustc-hash 2.1.1",
 ]
 
 [[package]]
@@ -2291,6 +2293,7 @@ version = "0.0.0"
 dependencies = [
  "eframe",
  "egui",
+ "fastrand",
  "multi-agent",
 ]
 

@@ -7,6 +7,8 @@ multi-agent = { git = "https://github.com/NickSpyker/multi-agent-workshop" }
 # Graphical User Interface Dependencies
 eframe = "0.33.3"
 egui = "0.33.3"
+# Random number generation
+fastrand = "2.3"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"

@@ -30,9 +30,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbd1c152-6d10-44a0-a432-a9de04b60c76" name="Changes" comment="Add CI/CD">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workshop/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/workshop/.claude/settings.local.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,12 +59,12 @@
     &quot;assignee&quot;: &quot;NickSpyker&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/NickSpyker/multi-agent-workshop.git",
-    "accountId": "48cacfcb-1c3b-4ee1-86b7-c6ce37ad635d"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/NickSpyker/multi-agent-workshop.git&quot;,
+    &quot;accountId&quot;: &quot;48cacfcb-1c3b-4ee1-86b7-c6ce37ad635d&quot;
   }
-}]]></component>
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="7wl9xEIf" />
   </component>
@@ -129,8 +127,8 @@
   </component>
   <component name="RunManager" selected="Cargo.Test">
     <list>
-      <item itemvalue="Cargo.Test" />
       <item itemvalue="Cargo.Run Example Bouncing Balls" />
+      <item itemvalue="Cargo.Test" />
     </list>
   </component>
   <component name="RustProjectSettings">
@@ -154,6 +152,7 @@
       <workItem from="1769607083047" duration="239000" />
       <workItem from="1769678276694" duration="308000" />
       <workItem from="1769697449556" duration="674000" />
+      <workItem from="1769762840331" duration="48000" />
     </task>
     <task id="LOCAL-00001" summary="Rename multi-agent-system-* to multi-agent-*">
       <option name="closed" value="true" />

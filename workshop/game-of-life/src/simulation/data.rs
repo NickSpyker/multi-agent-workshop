@@ -1,8 +1,8 @@
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 #[derive(Debug, Default, Clone)]
 pub struct GameOfLife {
-    pub cells: HashSet<(i64, i64)>,
+    pub cells: FxHashSet<(i64, i64)>,
     pub generation: u64,
 }
 
